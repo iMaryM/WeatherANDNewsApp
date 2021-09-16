@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CurrentWeather {
+class CurrentWeatherDescription {
     var weatherID: Int
     var shortNameOfWeather: String
     var descriptionOfWeather: String
