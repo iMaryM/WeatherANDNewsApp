@@ -144,6 +144,16 @@ class MainController: UIViewController {
         session.resume()
         
     }
+    
+    @IBAction func addCity(_ sender: UIButton) {
+        guard let locationViewController = getViewController(from: "Location", and: "LocationViewController") as? LocationViewController else {return}
+        locationViewController.arrayCurrentWeather = arrayCurrentWeather
+        locationViewController.modalPresentationStyle = .fullScreen
+        locationViewController.modalTransitionStyle = .coverVertical
+        present(locationViewController, animated: true, completion: nil)
+
+    }
+    
 
 }
 
