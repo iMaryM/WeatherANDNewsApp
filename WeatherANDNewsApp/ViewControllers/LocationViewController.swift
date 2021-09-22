@@ -15,11 +15,16 @@ class LocationViewController: UIViewController {
     
     var arrayCurrentWeather: [CurrentWeatherDescription] = []
     
-    var location: Location = Location(cityName: "Minsk")
+    var addedCity = ""
+    
+    var location: Location = Location(cityName: "")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        location = Location(cityName: addedCity)
+        
         for value in self.arrayCurrentWeather {
             if value.weatherID == 800 {
                 self.currentWeatherImageView.image = UIImage(named: "diego-ph-5LOhydOtTKU-unsplash")
@@ -46,7 +51,7 @@ class LocationViewController: UIViewController {
     }
     
     @IBAction func goToWeatherController(_ sender: UIButton) {
-        let mainViewController = getViewController(from: "Main", and: "MainController")
+        let mainViewController = getViewController(from: "Weather", and: "WeatherViewController")
         mainViewController.modalPresentationStyle = .fullScreen
         mainViewController.modalTransitionStyle = .flipHorizontal
         present(mainViewController, animated: true, completion: nil)

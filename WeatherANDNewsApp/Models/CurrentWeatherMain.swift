@@ -16,8 +16,10 @@ class CurrentWeatherMain {
     var minTemperature: Double
     var sunrise: Date
     var sunset: Date
+    var windSpeed: Double
+    var windDirection: Int
     
-    init(currentTemperature: Double, feelsTemperature: Double, atmosphericPressure: Int, humidity: Int, maxTemperature: Double, minTemperature: Double, sunrise: Date, sunset: Date) {
+    init(currentTemperature: Double, feelsTemperature: Double, atmosphericPressure: Int, humidity: Int, maxTemperature: Double, minTemperature: Double, sunrise: Date, sunset: Date, windSpeed: Double, windDirection: Int) {
         self.currentTemperature = currentTemperature
         self.feelsTemperature = feelsTemperature
         self.atmosphericPressure = atmosphericPressure
@@ -26,5 +28,7 @@ class CurrentWeatherMain {
         self.minTemperature = minTemperature
         self.sunrise = sunrise
         self.sunset = sunset
+        self.windSpeed = windSpeed
+        self.windDirection = windDirection
     }
 }
