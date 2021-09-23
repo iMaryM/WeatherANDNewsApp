@@ -135,9 +135,9 @@
 		8457B73E26EE42A900F63D01 /* StoryBoards */ = {
 			isa = PBXGroup;
 			children = (
+				847AC64726FB9F230011C3AB /* Main.storyboard */,
 				8457B72E26EE3C7E00F63D01 /* Weather.storyboard */,
 				84BE111E26F63C9A00A2478C /* Location.storyboard */,
-				847AC64726FB9F230011C3AB /* Main.storyboard */,
 			);
 			path = StoryBoards;
 			sourceTree = "<group>";

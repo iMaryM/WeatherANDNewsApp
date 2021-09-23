@@ -16,6 +16,8 @@ class LocationViewController: UIViewController {
     var currentWeatherMain: CurrentWeatherMain?
     
     var addedCity = ""
+    
+    var completion: ((String, CurrentWeatherMain?) -> ())? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +50,13 @@ class LocationViewController: UIViewController {
     }
     
     @IBAction func goToWeatherController(_ sender: UIButton) {
-        let mainViewController = getViewController(from: "Weather", and: "WeatherViewController")
+//        let mainViewController = getViewController(from: "Weather", and: "WeatherViewController")
         //передать currentWeatherMain и addedCity назад
-        mainViewController.modalPresentationStyle = .fullScreen
-        mainViewController.modalTransitionStyle = .flipHorizontal
-        present(mainViewController, animated: true, completion: nil)
+        completion?(addedCity, currentWeatherMain)
+//        mainViewController.modalPresentationStyle = .fullScreen
+//        mainViewController.modalTransitionStyle = .flipHorizontal
+//        present(mainViewController, animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func addLocation(_ sender: Any) {
@@ -79,7 +83,7 @@ class LocationViewController: UIViewController {
 
 extension LocationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
+        return 80.0
     }
 }
 

@@ -21,9 +21,10 @@ class ParseManager {
         for value in weatherDescription {
             guard let main = value["main"] as? String,
                   let description = value["description"] as? String,
-                  let id = value["id"] as? Int else {return nil}
+                  let id = value["id"] as? Int,
+                  let imageName = value["icon"] as? String else {return nil}
             
-            arrayOfCurrentWeatherDescription.append(CurrentWeatherDescription(weatherID: id, shortNameOfWeather: main, descriptionOfWeather: description))
+            arrayOfCurrentWeatherDescription.append(CurrentWeatherDescription(weatherID: id, shortNameOfWeather: main, descriptionOfWeather: description, imageName: imageName))
         }
         
         guard let weatherMain = json["main"] as? [String: Any] else {return nil}

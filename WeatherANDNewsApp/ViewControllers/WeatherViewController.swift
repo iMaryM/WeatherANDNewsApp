@@ -29,6 +29,10 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    var mainScreenImage = UIImageView()
+    var visualBlur = UIBlurEffect()
+    var visualBlurView = UIVisualEffectView()
+    
     let currentDate = Date()
     
     var addedCity = ""
@@ -36,6 +40,36 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let screenSize = UIScreen.main.bounds
+        
+        visualBlur = UIBlurEffect(style: .dark)
+        visualBlurView = UIVisualEffectView(effect: visualBlur)
+        visualBlurView.frame = screenSize
+        visualBlurView.alpha = 0.7
+        
+        mainScreenImage = UIImageView(frame: screenSize)
+        mainScreenImage.image = UIImage(named: "mainScreen_2")
+        mainScreenImage.contentMode = .scaleAspectFill
+        view.addSubview(mainScreenImage)
+        view.addSubview(visualBlurView)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 3, delay: 0, options: []) {
+            self.mainScreenImage.alpha = 0
+            self.visualBlurView.alpha = 0
+        } completion: { _ in
+            
+        }
         
         cityLabel.setTitle(addedCity, for: .normal)
         
@@ -46,7 +80,7 @@ class WeatherViewController: UIViewController {
         currentWeatherBlur.layer.cornerRadius = currentWeatherBlur.frame.height / 2.0
         
         getWeatherDescriptionData()
-            
+        
     }
 
     func getWeatherDescriptionData() {
@@ -120,6 +154,10 @@ class WeatherViewController: UIViewController {
         guard let locationViewController = getViewController(from: "Location", and: "LocationViewController") as? LocationViewController else {return}
         locationViewController.currentWeatherMain = currentWeatherMain
         locationViewController.addedCity = addedCity
+        locationViewController.completion = { city, weather in
+            self.addedCity = city
+            self.currentWeatherMain = weather
+        }
         locationViewController.modalPresentationStyle = .fullScreen
         locationViewController.modalTransitionStyle = .coverVertical
         present(locationViewController, animated: true, completion: nil)

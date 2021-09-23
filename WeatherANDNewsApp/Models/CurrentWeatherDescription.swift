@@ -11,10 +11,12 @@ class CurrentWeatherDescription {
     var weatherID: Int
     var shortNameOfWeather: String
     var descriptionOfWeather: String
+    var imageName: String
     
-    init(weatherID: Int, shortNameOfWeather: String, descriptionOfWeather: String) {
+    init(weatherID: Int, shortNameOfWeather: String, descriptionOfWeather: String, imageName: String) {
         self.weatherID = weatherID
         self.shortNameOfWeather = shortNameOfWeather
         self.descriptionOfWeather = descriptionOfWeather
+        self.imageName = imageName
     }
 }
