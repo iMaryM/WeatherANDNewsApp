@@ -26,64 +26,76 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeatherANDNews Application present weather and news in choosing city." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1c-Jb-0rs">
-                                            <rect key="frame" x="16" y="466.5" width="382" height="41"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your city, please, and enjoy to the application" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msk-Aw-r1h">
-                                            <rect key="frame" x="16" y="523.5" width="382" height="41"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the city" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SC8-a0-Z3j">
-                                            <rect key="frame" x="16" y="596.5" width="382" height="44"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZ2-ac-zSM">
+                                            <rect key="frame" x="16" y="436" width="382" height="300"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ca0-We-uQx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeatherANDNews Application present weather and news in choosing city." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1c-Jb-0rs">
+                                                    <rect key="frame" x="0.0" y="37" width="382" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your city, please, and enjoy to the application" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msk-Aw-r1h">
+                                                    <rect key="frame" x="0.0" y="102" width="382" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the city" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SC8-a0-Z3j">
+                                                    <rect key="frame" x="0.0" y="159" width="382" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="Oe3-ml-Ocd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="go"/>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqY-zQ-sqp">
+                                                    <rect key="frame" x="0.0" y="227" width="382" height="50"/>
+                                                    <color key="backgroundColor" red="0.45030850169999997" green="0.23866865039999999" blue="0.29020079970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="bFf-1q-0rg"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Go to weather">
+                                                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <imageReference key="image" image="arrow.right" catalog="system" renderingMode="template"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="goToWeatherAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KHG-Sv-Osa"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="Oe3-ml-Ocd"/>
+                                                <constraint firstItem="iqY-zQ-sqp" firstAttribute="leading" secondItem="qZ2-ac-zSM" secondAttribute="leading" id="07V-tO-bpx"/>
+                                                <constraint firstItem="Msk-Aw-r1h" firstAttribute="top" secondItem="w1c-Jb-0rs" secondAttribute="bottom" constant="24" id="9MS-xd-aFU"/>
+                                                <constraint firstAttribute="trailing" secondItem="SC8-a0-Z3j" secondAttribute="trailing" id="B7U-jv-8xo"/>
+                                                <constraint firstAttribute="trailing" secondItem="iqY-zQ-sqp" secondAttribute="trailing" id="BtU-t4-C6L"/>
+                                                <constraint firstItem="Ca0-We-uQx" firstAttribute="leading" secondItem="qZ2-ac-zSM" secondAttribute="leading" id="EKC-Qg-BpX"/>
+                                                <constraint firstItem="w1c-Jb-0rs" firstAttribute="leading" secondItem="qZ2-ac-zSM" secondAttribute="leading" id="Hp5-ne-95z"/>
+                                                <constraint firstAttribute="trailing" secondItem="Msk-Aw-r1h" secondAttribute="trailing" id="Lr1-O0-tZu"/>
+                                                <constraint firstAttribute="trailing" secondItem="w1c-Jb-0rs" secondAttribute="trailing" id="SgE-7g-6q4"/>
+                                                <constraint firstItem="SC8-a0-Z3j" firstAttribute="top" secondItem="Msk-Aw-r1h" secondAttribute="bottom" constant="16" id="USQ-b5-M3U"/>
+                                                <constraint firstItem="Ca0-We-uQx" firstAttribute="top" secondItem="qZ2-ac-zSM" secondAttribute="top" id="ZhQ-5x-rZd"/>
+                                                <constraint firstAttribute="height" constant="300" id="n8F-sx-lLl"/>
+                                                <constraint firstItem="w1c-Jb-0rs" firstAttribute="top" secondItem="Ca0-We-uQx" secondAttribute="bottom" constant="16" id="rQ4-vh-l8q"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ca0-We-uQx" secondAttribute="trailing" id="up2-aX-uBz"/>
+                                                <constraint firstItem="iqY-zQ-sqp" firstAttribute="top" secondItem="SC8-a0-Z3j" secondAttribute="bottom" constant="24" id="wBW-K7-Ktu"/>
+                                                <constraint firstItem="Msk-Aw-r1h" firstAttribute="leading" secondItem="qZ2-ac-zSM" secondAttribute="leading" id="xbh-X6-6o9"/>
+                                                <constraint firstItem="SC8-a0-Z3j" firstAttribute="leading" secondItem="qZ2-ac-zSM" secondAttribute="leading" id="yTl-hy-jrY"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqY-zQ-sqp">
-                                            <rect key="frame" x="16" y="656.5" width="382" height="50"/>
-                                            <color key="backgroundColor" red="0.45030850169999997" green="0.23866865039999999" blue="0.29020079970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="bFf-1q-0rg"/>
-                                            </constraints>
-                                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Go to weather">
-                                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <imageReference key="image" image="arrow.right" catalog="system" renderingMode="template"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="goToWeatherAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KHG-Sv-Osa"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ca0-We-uQx">
-                                            <rect key="frame" x="16" y="437.5" width="382" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="w1c-Jb-0rs" firstAttribute="leading" secondItem="wPx-wG-n8l" secondAttribute="leading" constant="16" id="2kJ-9b-521"/>
-                                        <constraint firstItem="iqY-zQ-sqp" firstAttribute="leading" secondItem="wPx-wG-n8l" secondAttribute="leading" constant="16" id="2ka-a8-3gZ"/>
-                                        <constraint firstItem="Ca0-We-uQx" firstAttribute="leading" secondItem="wPx-wG-n8l" secondAttribute="leading" constant="16" id="2tw-fz-C8Z"/>
-                                        <constraint firstItem="SC8-a0-Z3j" firstAttribute="top" secondItem="Msk-Aw-r1h" secondAttribute="bottom" constant="32" id="6c4-o0-qsq"/>
-                                        <constraint firstItem="Msk-Aw-r1h" firstAttribute="leading" secondItem="wPx-wG-n8l" secondAttribute="leading" constant="16" id="76Y-fK-GrC"/>
-                                        <constraint firstAttribute="trailing" secondItem="iqY-zQ-sqp" secondAttribute="trailing" constant="16" id="EEg-Xf-pC6"/>
-                                        <constraint firstAttribute="trailing" secondItem="w1c-Jb-0rs" secondAttribute="trailing" constant="16" id="N2C-d6-CDv"/>
-                                        <constraint firstAttribute="trailing" secondItem="SC8-a0-Z3j" secondAttribute="trailing" constant="16" id="Qok-gN-bTb"/>
-                                        <constraint firstItem="w1c-Jb-0rs" firstAttribute="top" secondItem="Ca0-We-uQx" secondAttribute="bottom" constant="8" id="RlP-zz-1og"/>
-                                        <constraint firstAttribute="trailing" secondItem="Ca0-We-uQx" secondAttribute="trailing" constant="16" id="Se4-hp-zwl"/>
-                                        <constraint firstItem="SC8-a0-Z3j" firstAttribute="leading" secondItem="wPx-wG-n8l" secondAttribute="leading" constant="16" id="Wbd-bM-8Jq"/>
-                                        <constraint firstAttribute="trailing" secondItem="Msk-Aw-r1h" secondAttribute="trailing" constant="16" id="bWb-cS-eVc"/>
-                                        <constraint firstItem="Ca0-We-uQx" firstAttribute="centerY" secondItem="wPx-wG-n8l" secondAttribute="centerY" id="fAP-NN-GUt"/>
-                                        <constraint firstItem="Msk-Aw-r1h" firstAttribute="top" secondItem="w1c-Jb-0rs" secondAttribute="bottom" constant="16" id="gkP-fv-nly"/>
-                                        <constraint firstItem="iqY-zQ-sqp" firstAttribute="top" secondItem="SC8-a0-Z3j" secondAttribute="bottom" constant="16" id="hdt-Qc-Rs9"/>
+                                        <constraint firstAttribute="trailing" secondItem="qZ2-ac-zSM" secondAttribute="trailing" constant="16" id="T5N-W9-OA1"/>
+                                        <constraint firstItem="qZ2-ac-zSM" firstAttribute="leading" secondItem="wPx-wG-n8l" secondAttribute="leading" constant="16" id="tgV-eW-tpH"/>
+                                        <constraint firstAttribute="bottom" secondItem="qZ2-ac-zSM" secondAttribute="bottom" constant="160" id="xTo-fy-TKV"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
@@ -104,6 +116,7 @@
                     </view>
                     <connections>
                         <outlet property="addCityTextField" destination="SC8-a0-Z3j" id="Bcr-dZ-kUW"/>
+                        <outlet property="constraint" destination="xTo-fy-TKV" id="GAk-Q8-CGX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -10,15 +10,47 @@ import UIKit
 class MainViewController: UIViewController {
 
     @IBOutlet weak var addCityTextField: UITextField!
+    @IBOutlet weak var constraint: NSLayoutConstraint!
     
     var currentWeatherMain: CurrentWeatherMain?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        registerForKeyboardNotification()
+        
+    }
+    
+    deinit {
+        removeKeyboardNotification()
+    }
+    
+    func registerForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification () {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        constraint.constant = keyboardFrameSize.height
+    }
+    
+    @objc
+    func keyboardWillHide() {
+        constraint.constant = 160
     }
 
     @IBAction func goToWeatherAction(_ sender: UIButton) {
+        
+        addCityTextField.resignFirstResponder()
+        
         guard let addedCity = addCityTextField.text else {
             return
         }
