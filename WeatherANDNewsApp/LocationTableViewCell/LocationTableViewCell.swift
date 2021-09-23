@@ -22,7 +22,7 @@ class LocationTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup(location: Location) {
-        cityNameLabel.text = location.cityName
+    func setup(location: String, currentWeather: CurrentWeatherMain?) {
+        cityNameLabel.text = location
     }
 }

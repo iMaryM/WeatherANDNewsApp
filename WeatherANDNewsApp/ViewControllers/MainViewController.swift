@@ -11,6 +11,8 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var addCityTextField: UITextField!
     
+    var currentWeatherMain: CurrentWeatherMain?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,35 +23,25 @@ class MainViewController: UIViewController {
             return
         }
         
-        let URLString = "https://api.openweathermap.org/data/2.5/weather?q=\(addedCity)&appid=5191046f25842380a185c9d77f29dc49"
-        
-        guard let url = URL(string: URLString) else {return}
-        
-        let session = URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
-                guard statusCode == 200 else {
-                    DispatchQueue.main.async  {
-                        let alert = UIAlertController(title: "Not Found", message: "\(statusCode)", preferredStyle: .alert)
-                        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                        alert.addAction(cancelButton)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async  {
-                    guard let weatherViewController = self.getViewController(from: "Weather", and: "WeatherViewController") as? WeatherViewController else {return}
-                    weatherViewController.addedCity = addedCity
-                    weatherViewController.modalPresentationStyle = .fullScreen
-                    weatherViewController.modalTransitionStyle = .coverVertical
-                    self.present(weatherViewController, animated: true, completion: nil)
-                }
+        HTTPManager.shared.getCurrentWeather(for: addedCity) { weather in
+            self.currentWeatherMain = weather
+            guard self.currentWeatherMain != nil else {
+                let alert = UIAlertController(title: "Not Found", message: "\(addedCity) does not exist", preferredStyle: .alert)
+                let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(cancelButton)
+                self.present(alert, animated: true, completion: nil)
+                return
             }
+            
+            guard let weatherViewController = self.getViewController(from: "Weather", and: "WeatherViewController") as? WeatherViewController else {return}
+            weatherViewController.addedCity = addedCity
+            weatherViewController.currentWeatherMain = self.currentWeatherMain
+            weatherViewController.modalPresentationStyle = .fullScreen
+            weatherViewController.modalTransitionStyle = .coverVertical
+            self.present(weatherViewController, animated: true, completion: nil)
+            
         }
-        
-        session.resume()
+
     }
     
 }

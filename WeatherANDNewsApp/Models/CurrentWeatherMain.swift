@@ -8,6 +8,8 @@
 import UIKit
 
 class CurrentWeatherMain {
+    
+    var arrayOfCurrentWeatherDescription: [CurrentWeatherDescription]
     var currentTemperature: Double
     var feelsTemperature: Double
     var atmosphericPressure: Int
@@ -19,7 +21,8 @@ class CurrentWeatherMain {
     var windSpeed: Double
     var windDirection: Int
     
-    init(currentTemperature: Double, feelsTemperature: Double, atmosphericPressure: Int, humidity: Int, maxTemperature: Double, minTemperature: Double, sunrise: Date, sunset: Date, windSpeed: Double, windDirection: Int) {
+    init(arrayOfCurrentWeatherDescription: [CurrentWeatherDescription], currentTemperature: Double, feelsTemperature: Double, atmosphericPressure: Int, humidity: Int, maxTemperature: Double, minTemperature: Double, sunrise: Date, sunset: Date, windSpeed: Double, windDirection: Int) {
+        self.arrayOfCurrentWeatherDescription = arrayOfCurrentWeatherDescription
         self.currentTemperature = currentTemperature
         self.feelsTemperature = feelsTemperature
         self.atmosphericPressure = atmosphericPressure

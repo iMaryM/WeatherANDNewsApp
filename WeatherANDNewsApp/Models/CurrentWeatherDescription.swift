@@ -1,8 +1,8 @@
 //
-//  CurrentWeather.swift
+//  CurrentWeatherDescription.swift
 //  WeatherANDNewsApp
 //
-//  Created by Мария Манжос on 12.09.21.
+//  Created by Мария Манжос on 23.09.21.
 //
 
 import UIKit

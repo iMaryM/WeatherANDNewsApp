@@ -13,19 +13,16 @@ class LocationViewController: UIViewController {
     @IBOutlet weak var addedLocationTableView: UITableView!
     @IBOutlet weak var addLocationTextField: UITextField!
     
-    var arrayCurrentWeather: [CurrentWeatherDescription] = []
+    var currentWeatherMain: CurrentWeatherMain?
     
     var addedCity = ""
-    
-    var location: Location = Location(cityName: "")
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        location = Location(cityName: addedCity)
+        guard let currentWeather = currentWeatherMain else {return}
         
-        for value in self.arrayCurrentWeather {
+        for value in currentWeather.arrayOfCurrentWeatherDescription {
             if value.weatherID == 800 {
                 self.currentWeatherImageView.image = UIImage(named: "diego-ph-5LOhydOtTKU-unsplash")
                 self.currentWeatherImageView.contentMode = .scaleAspectFill
@@ -52,45 +49,30 @@ class LocationViewController: UIViewController {
     
     @IBAction func goToWeatherController(_ sender: UIButton) {
         let mainViewController = getViewController(from: "Weather", and: "WeatherViewController")
+        //передать currentWeatherMain и addedCity назад
         mainViewController.modalPresentationStyle = .fullScreen
         mainViewController.modalTransitionStyle = .flipHorizontal
         present(mainViewController, animated: true, completion: nil)
     }
     
-    // по кнопке надо вызвать метод с названием города
-    // если 200 код - все ок
-    // если 500 - сообщение что неправильно введн город
     @IBAction func addLocation(_ sender: Any) {
         guard let addedLocation = addLocationTextField.text else {
             return
         }
         
-        let URLString = "https://api.openweathermap.org/data/2.5/weather?q=\(addedLocation)&appid=5191046f25842380a185c9d77f29dc49"
-        
-        guard let url = URL(string: URLString) else {return}
-        
-        let session = URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
-                guard statusCode == 200 else {
-                    DispatchQueue.main.async  {
-                        let alert = UIAlertController(title: "Not Found", message: "\(statusCode)", preferredStyle: .alert)
-                        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                        alert.addAction(cancelButton)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async  {
-                    self.location.cityName = addedLocation
-                    self.addedLocationTableView.reloadData()
-                }
+        HTTPManager.shared.getCurrentWeather(for: addedLocation) { weather in
+            self.currentWeatherMain = weather
+            guard self.currentWeatherMain != nil else {
+                let alert = UIAlertController(title: "Not Found", message: "\(addedLocation) does not exist", preferredStyle: .alert)
+                let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(cancelButton)
+                self.present(alert, animated: true, completion: nil)
+                return
             }
+            
+            self.addedCity = addedLocation
+            self.addedLocationTableView.reloadData()
         }
-        
-        session.resume()
     }
     
 }
@@ -103,7 +85,10 @@ extension LocationViewController: UITableViewDelegate {
 
 extension LocationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        guard let currentWeather = currentWeatherMain else {
+            return 0
+        }
+        return currentWeather.arrayOfCurrentWeatherDescription.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,7 +96,7 @@ extension LocationViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.setup(location: location)
+        cell.setup(location: addedCity, currentWeather: currentWeatherMain)
         return cell
     }
 }
