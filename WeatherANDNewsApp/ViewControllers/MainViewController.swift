@@ -7,6 +7,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import GSMessages
 
 class MainViewController: UIViewController {
 
@@ -50,11 +51,18 @@ class MainViewController: UIViewController {
 
     @IBAction func goToWeatherAction(_ sender: UIButton) {
         
+        GSMessage.errorBackgroundColor = UIColor(red: 219.0/255, green: 36.0/255,  blue: 27.0/255,  alpha: 0.35)
+        GSMessage.warningBackgroundColor = UIColor(red: 230.0/255, green: 189.0/255, blue: 1.0/255,   alpha: 0.55)
+        
         let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
         
         addCityTextField.resignFirstResponder()
         
-        guard let addedCity = addCityTextField.text else {
+        guard let addedCity = addCityTextField.text,
+              addedCity != "" else {
+            self.showMessage("Enter the city, please", type: .warning, options: [
+                                .animationDuration(0.3),
+                                .textColor(.lightGray)])
             return
         }
         
@@ -63,10 +71,10 @@ class MainViewController: UIViewController {
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
             guard self.currentWeatherMain != nil else {
-                let alert = UIAlertController(title: "Not Found", message: "\(addedCity) does not exist", preferredStyle: .alert)
-                let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alert.addAction(cancelButton)
-                self.present(alert, animated: true, completion: nil)
+                self.showMessage("\(addedCity) not found\n Enter the correct city, please", type: .error, options: [
+                                    .animationDuration(0.3),
+                                    .textColor(.lightGray),
+                                    .textNumberOfLines(0)])
                 return
             }
             
