@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class MainViewController: UIViewController {
 
@@ -49,6 +50,8 @@ class MainViewController: UIViewController {
 
     @IBAction func goToWeatherAction(_ sender: UIButton) {
         
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
+        
         addCityTextField.resignFirstResponder()
         
         guard let addedCity = addCityTextField.text else {
@@ -57,6 +60,8 @@ class MainViewController: UIViewController {
         
         HTTPManager.shared.getCurrentWeather(for: addedCity) { weather in
             self.currentWeatherMain = weather
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
             guard self.currentWeatherMain != nil else {
                 let alert = UIAlertController(title: "Not Found", message: "\(addedCity) does not exist", preferredStyle: .alert)
                 let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -73,7 +78,10 @@ class MainViewController: UIViewController {
             self.present(weatherViewController, animated: true, completion: nil)
             
         }
-
+        
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
     }
     
 }

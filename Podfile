@@ -8,5 +8,6 @@ target 'WeatherANDNewsApp' do
   # Pods for WeatherANDNewsApp
   pod 'Alamofire', '~> 5.4'
   pod 'AlamofireNetworkActivityLogger', '~> 3.4'
-
+  pod 'NVActivityIndicatorView'
+  
 end

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class LocationViewController: UIViewController {
 
@@ -50,22 +51,22 @@ class LocationViewController: UIViewController {
     }
     
     @IBAction func goToWeatherController(_ sender: UIButton) {
-//        let mainViewController = getViewController(from: "Weather", and: "WeatherViewController")
-        //передать currentWeatherMain и addedCity назад
         completion?(addedCity, currentWeatherMain)
-//        mainViewController.modalPresentationStyle = .fullScreen
-//        mainViewController.modalTransitionStyle = .flipHorizontal
-//        present(mainViewController, animated: true, completion: nil)
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func addLocation(_ sender: Any) {
+        
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray , padding: nil)
+        
         guard let addedLocation = addLocationTextField.text else {
             return
         }
         
         HTTPManager.shared.getCurrentWeather(for: addedLocation) { weather in
             self.currentWeatherMain = weather
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
             guard self.currentWeatherMain != nil else {
                 let alert = UIAlertController(title: "Not Found", message: "\(addedLocation) does not exist", preferredStyle: .alert)
                 let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -77,6 +78,11 @@ class LocationViewController: UIViewController {
             self.addedCity = addedLocation
             self.addedLocationTableView.reloadData()
         }
+        
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
     }
     
 }
