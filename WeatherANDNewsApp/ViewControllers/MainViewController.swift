@@ -8,11 +8,13 @@
 import UIKit
 import NVActivityIndicatorView
 import GSMessages
+import AVFoundation
 
 class MainViewController: UIViewController {
 
     @IBOutlet weak var addCityTextField: UITextField!
     @IBOutlet weak var constraint: NSLayoutConstraint!
+    @IBOutlet weak var videoView: UIView!
     
     var currentWeatherMain: CurrentWeatherMain?
     
@@ -20,11 +22,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         registerForKeyboardNotification()
-        
+        setVideoOnMainScreen()
+
     }
     
     deinit {
         removeKeyboardNotification()
+        NotificationCenter.default.removeObserver(self)
     }
     
     func registerForKeyboardNotification() {
@@ -49,6 +53,27 @@ class MainViewController: UIViewController {
         constraint.constant = 160
     }
 
+    func setVideoOnMainScreen() {
+        guard let urlString = Bundle.main.path(forResource: "Fog", ofType: "mp4") else { return }
+        let url = URL(fileURLWithPath: urlString)
+        let asset = AVAsset(url: url)
+        let playerItem = AVPlayerItem(asset: asset)
+        let player = AVPlayer(playerItem: playerItem)
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = CGRect(origin: .zero, size: videoView.frame.size)
+        playerLayer.videoGravity = .resizeAspectFill
+        videoView.layer.addSublayer(playerLayer)
+        registerForVideoNotification(playerItem: playerItem, player: player)
+        player.play()
+    }
+    
+    func registerForVideoNotification(playerItem: AVPlayerItem, player: AVPlayer) {
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: .main, using: { _ in
+            player.seek(to: .zero)
+            player.play()
+        })
+    }
+    
     @IBAction func goToWeatherAction(_ sender: UIButton) {
         
         GSMessage.errorBackgroundColor = UIColor(red: 219.0/255, green: 36.0/255,  blue: 27.0/255,  alpha: 0.35)
