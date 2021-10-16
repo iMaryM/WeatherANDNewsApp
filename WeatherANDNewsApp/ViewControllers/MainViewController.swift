@@ -22,8 +22,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         registerForKeyboardNotification()
-        setVideoOnMainScreen()
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setVideoOnMainScreen()
     }
     
     deinit {

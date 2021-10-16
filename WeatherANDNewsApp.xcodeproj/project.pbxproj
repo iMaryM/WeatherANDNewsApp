@@ -20,6 +20,7 @@
 		8457B73526EE3C8600F63D01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8457B73326EE3C8600F63D01 /* LaunchScreen.storyboard */; };
 		847AC64826FB9F230011C3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847AC64726FB9F230011C3AB /* Main.storyboard */; };
 		847AC64A26FBA3AD0011C3AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AC64926FBA3AD0011C3AB /* MainViewController.swift */; };
+		84BA7F2A271B0BE3004879DC /* ChooseMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA7F29271B0BE2004879DC /* ChooseMapViewController.swift */; };
 		84BE111F26F63C9A00A2478C /* Location.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BE111E26F63C9A00A2478C /* Location.storyboard */; };
 		84BE112126F63CB000A2478C /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE112026F63CB000A2478C /* LocationViewController.swift */; };
 		84BE112326F6415700A2478C /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE112226F6415700A2478C /* UIViewController+Storyboard.swift */; };
@@ -47,6 +48,7 @@
 		8457B73626EE3C8600F63D01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		847AC64726FB9F230011C3AB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		847AC64926FBA3AD0011C3AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		84BA7F29271B0BE2004879DC /* ChooseMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMapViewController.swift; sourceTree = "<group>"; };
 		84BE111E26F63C9A00A2478C /* Location.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Location.storyboard; sourceTree = "<group>"; };
 		84BE112026F63CB000A2478C /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		84BE112226F6415700A2478C /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				847AC64926FBA3AD0011C3AB /* MainViewController.swift */,
+				84BA7F29271B0BE2004879DC /* ChooseMapViewController.swift */,
 				8457B72C26EE3C7E00F63D01 /* WeatherViewController.swift */,
 				84BE112026F63CB000A2478C /* LocationViewController.swift */,
 			);
@@ -201,6 +204,7 @@
 				8457B72226EE3C7E00F63D01 /* Frameworks */,
 				8457B72326EE3C7E00F63D01 /* Resources */,
 				D02E5777C60C41E9E6DF15BC /* [CP] Embed Pods Frameworks */,
+				AC33389CC9D391EF88C8870B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -261,6 +265,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		AC33389CC9D391EF88C8870B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeatherANDNewsApp/Pods-WeatherANDNewsApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeatherANDNewsApp/Pods-WeatherANDNewsApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeatherANDNewsApp/Pods-WeatherANDNewsApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B9328540B81BC20922C4E6FC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +336,7 @@
 				8457B72926EE3C7E00F63D01 /* AppDelegate.swift in Sources */,
 				842A517426FCCBD9007CA62F /* CurrentWeatherDescription.swift in Sources */,
 				842A516E26FCC798007CA62F /* HTTPManager.swift in Sources */,
+				84BA7F2A271B0BE3004879DC /* ChooseMapViewController.swift in Sources */,
 				84C4E72426F7A4E900FAC1D5 /* LocationTableViewCell.swift in Sources */,
 				8457B72B26EE3C7E00F63D01 /* SceneDelegate.swift in Sources */,
 				84C4117B26F348BF00381A99 /* CurrentWeatherMain.swift in Sources */,

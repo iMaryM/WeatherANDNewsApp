@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1R1-Se-GVn">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Add location-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="MainViewController" customModule="WeatherANDNewsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,7 +30,7 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZ2-ac-zSM">
-                                <rect key="frame" x="16" y="432" width="396" height="300"/>
+                                <rect key="frame" x="16" y="383" width="396" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ca0-We-uQx">
                                         <rect key="frame" x="0.0" y="0.0" width="396" height="21"/>
@@ -45,7 +45,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your city, please, and enjoy to the application" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msk-Aw-r1h">
-                                        <rect key="frame" x="0.0" y="101.66666666666663" width="396" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="101.66666666666669" width="396" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -127,6 +127,7 @@
                             <constraint firstAttribute="bottom" secondItem="sJH-eq-THW" secondAttribute="bottom" id="sXA-cc-chD"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Add location" image="addCity" id="5t1-VS-Ldm"/>
                     <connections>
                         <outlet property="addCityTextField" destination="SC8-a0-Z3j" id="Bcr-dZ-kUW"/>
                         <outlet property="constraint" destination="h6j-Or-bH5" id="0VL-x1-Omu"/>
@@ -135,13 +136,104 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7.2463768115942031" y="99.776785714285708"/>
+            <point key="canvasLocation" x="855" y="819"/>
+        </scene>
+        <!--Choose on map-->
+        <scene sceneID="4GP-gE-vxF">
+            <objects>
+                <viewController storyboardIdentifier="ChooseMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ptB-Jk-GG8" customClass="ChooseMapViewController" customModule="WeatherANDNewsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dHA-z7-sae">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ydw-mZ-Ecl">
+                                <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="iFO-VQ-Xos" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose location on the map, please" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMn-BN-MnM">
+                                <rect key="frame" x="0.0" y="52" width="428" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-CS-kzA">
+                                <rect key="frame" x="0.0" y="77" width="428" height="30.666666666666671"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.forward" catalog="system" imagePlacement="trailing" imagePadding="4"/>
+                                <connections>
+                                    <action selector="locationButtonDidTap:" destination="ptB-Jk-GG8" eventType="touchUpInside" id="RpY-af-nnh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qR6-w0-8zE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="iFO-VQ-Xos" secondAttribute="trailing" id="5bs-zL-NaX"/>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="bottom" secondItem="iFO-VQ-Xos" secondAttribute="bottom" id="5jr-sJ-GOm"/>
+                            <constraint firstItem="ZA8-CS-kzA" firstAttribute="top" secondItem="EMn-BN-MnM" secondAttribute="bottom" constant="4" id="97S-Jf-Fmm"/>
+                            <constraint firstItem="iFO-VQ-Xos" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="G0L-Lu-JLu"/>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="Ydw-mZ-Ecl" secondAttribute="trailing" id="Imq-uP-KbY"/>
+                            <constraint firstAttribute="bottom" secondItem="Ydw-mZ-Ecl" secondAttribute="bottom" id="P3O-eb-1YL"/>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="ZA8-CS-kzA" secondAttribute="trailing" id="RoA-ab-9rj"/>
+                            <constraint firstItem="Ydw-mZ-Ecl" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="a2A-1i-kpF"/>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="EMn-BN-MnM" secondAttribute="trailing" id="au7-Ue-3uY"/>
+                            <constraint firstItem="EMn-BN-MnM" firstAttribute="top" secondItem="qR6-w0-8zE" secondAttribute="top" constant="8" id="cjD-ve-sHJ"/>
+                            <constraint firstItem="ZA8-CS-kzA" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="eIy-K9-WrX"/>
+                            <constraint firstItem="Ydw-mZ-Ecl" firstAttribute="top" secondItem="dHA-z7-sae" secondAttribute="top" id="pdI-yo-spH"/>
+                            <constraint firstItem="EMn-BN-MnM" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="vxj-Uo-HUO"/>
+                            <constraint firstItem="iFO-VQ-Xos" firstAttribute="top" secondItem="dHA-z7-sae" secondAttribute="top" id="xLH-fv-s68"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Choose on map" image="map" id="9RB-A9-8KC"/>
+                    <connections>
+                        <outlet property="googleMapView" destination="iFO-VQ-Xos" id="NcR-dr-GAM"/>
+                        <outlet property="locationButton" destination="ZA8-CS-kzA" id="619-u2-txw"/>
+                        <outlet property="videoView" destination="Ydw-mZ-Ecl" id="uv9-jY-8hh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zXu-Fk-7pP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-768.2242990654205" y="817.71058315334778"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="FAu-xj-Uzx">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1R1-Se-GVn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" alpha="0.5" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NaS-ce-Mra">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" systemColor="systemBlueColor"/>
+                        <color key="selectedImageTintColor" red="0.29395794870000003" green="0.20311740040000001" blue="0.26275324820000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="6dx-Mf-72z"/>
+                        <segue destination="ptB-Jk-GG8" kind="relationship" relationship="viewControllers" id="Czh-Ta-QsK"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8gO-Jg-1Gd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8.4112149532710276" y="99.136069114470843"/>
         </scene>
     </scenes>
     <resources>
+        <image name="addCity" width="16.666666030883789" height="16.666666030883789"/>
         <image name="arrow.forward" catalog="system" width="128" height="98"/>
+        <image name="chevron.forward" catalog="system" width="96" height="128"/>
+        <image name="map" width="16.666666030883789" height="16.666666030883789"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

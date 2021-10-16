@@ -10,5 +10,6 @@ target 'WeatherANDNewsApp' do
   pod 'AlamofireNetworkActivityLogger', '~> 3.4'
   pod 'NVActivityIndicatorView'
   pod "GSMessages"
+  pod 'GoogleMaps', '5.1.0'
   
 end

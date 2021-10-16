@@ -7,12 +7,15 @@
 
 import UIKit
 import AlamofireNetworkActivityLogger
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        GMSServices.provideAPIKey("AIzaSyDHSqEJIQhoeasvJwPg6kjIy_YxM0uNCfU")
         
         NetworkActivityLogger.shared.startLogging()
         NetworkActivityLogger.shared.level = .debug
