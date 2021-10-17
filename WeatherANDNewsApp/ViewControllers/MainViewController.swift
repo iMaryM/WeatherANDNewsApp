@@ -22,7 +22,12 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         registerForKeyboardNotification()
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
