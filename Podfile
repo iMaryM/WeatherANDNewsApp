@@ -11,5 +11,6 @@ target 'WeatherANDNewsApp' do
   pod 'NVActivityIndicatorView'
   pod "GSMessages"
   pod 'GoogleMaps', '5.1.0'
+  pod 'RealmSwift', '~>10'
   
 end

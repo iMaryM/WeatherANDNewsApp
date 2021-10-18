@@ -21,6 +21,9 @@
 		847AC64826FB9F230011C3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847AC64726FB9F230011C3AB /* Main.storyboard */; };
 		847AC64A26FBA3AD0011C3AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AC64926FBA3AD0011C3AB /* MainViewController.swift */; };
 		84BA7F2A271B0BE3004879DC /* ChooseMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA7F29271B0BE2004879DC /* ChooseMapViewController.swift */; };
+		84BA7F5B271DE4F0004879DC /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA7F5A271DE4F0004879DC /* RealmManager.swift */; };
+		84BA7F5D271DF4BE004879DC /* RequestInfoDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA7F5C271DF4BE004879DC /* RequestInfoDB.swift */; };
+		84BA7F5F271DF4E3004879DC /* WeatherInfoDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA7F5E271DF4E3004879DC /* WeatherInfoDB.swift */; };
 		84BE111F26F63C9A00A2478C /* Location.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BE111E26F63C9A00A2478C /* Location.storyboard */; };
 		84BE112126F63CB000A2478C /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE112026F63CB000A2478C /* LocationViewController.swift */; };
 		84BE112326F6415700A2478C /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE112226F6415700A2478C /* UIViewController+Storyboard.swift */; };
@@ -49,6 +52,9 @@
 		847AC64726FB9F230011C3AB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		847AC64926FBA3AD0011C3AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		84BA7F29271B0BE2004879DC /* ChooseMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMapViewController.swift; sourceTree = "<group>"; };
+		84BA7F5A271DE4F0004879DC /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		84BA7F5C271DF4BE004879DC /* RequestInfoDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInfoDB.swift; sourceTree = "<group>"; };
+		84BA7F5E271DF4E3004879DC /* WeatherInfoDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoDB.swift; sourceTree = "<group>"; };
 		84BE111E26F63C9A00A2478C /* Location.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Location.storyboard; sourceTree = "<group>"; };
 		84BE112026F63CB000A2478C /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		84BE112226F6415700A2478C /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 		8457B72726EE3C7E00F63D01 /* WeatherANDNewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				84BA7F58271DE49B004879DC /* RealmDB */,
 				84534943270B194B002ABC42 /* Media */,
 				842A516C26FCC777007CA62F /* NetWorking */,
 				84C4E72126F7A4C300FAC1D5 /* LocationTableViewCell */,
@@ -164,6 +171,24 @@
 				84BE112926F77ACA00A2478C /* Location.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		84BA7F58271DE49B004879DC /* RealmDB */ = {
+			isa = PBXGroup;
+			children = (
+				84BA7F59271DE4D7004879DC /* ModelsDB */,
+				84BA7F5A271DE4F0004879DC /* RealmManager.swift */,
+			);
+			path = RealmDB;
+			sourceTree = "<group>";
+		};
+		84BA7F59271DE4D7004879DC /* ModelsDB */ = {
+			isa = PBXGroup;
+			children = (
+				84BA7F5C271DF4BE004879DC /* RequestInfoDB.swift */,
+				84BA7F5E271DF4E3004879DC /* WeatherInfoDB.swift */,
+			);
+			path = ModelsDB;
 			sourceTree = "<group>";
 		};
 		84C4117726F343D000381A99 /* Extensions */ = {
@@ -330,12 +355,15 @@
 			files = (
 				84BE112126F63CB000A2478C /* LocationViewController.swift in Sources */,
 				847AC64A26FBA3AD0011C3AB /* MainViewController.swift in Sources */,
+				84BA7F5B271DE4F0004879DC /* RealmManager.swift in Sources */,
 				8457B72D26EE3C7E00F63D01 /* WeatherViewController.swift in Sources */,
 				84BE112A26F77ACA00A2478C /* Location.swift in Sources */,
 				84C4117926F343F300381A99 /* Date+Format.swift in Sources */,
 				8457B72926EE3C7E00F63D01 /* AppDelegate.swift in Sources */,
+				84BA7F5D271DF4BE004879DC /* RequestInfoDB.swift in Sources */,
 				842A517426FCCBD9007CA62F /* CurrentWeatherDescription.swift in Sources */,
 				842A516E26FCC798007CA62F /* HTTPManager.swift in Sources */,
+				84BA7F5F271DF4E3004879DC /* WeatherInfoDB.swift in Sources */,
 				84BA7F2A271B0BE3004879DC /* ChooseMapViewController.swift in Sources */,
 				84C4E72426F7A4E900FAC1D5 /* LocationTableViewCell.swift in Sources */,
 				8457B72B26EE3C7E00F63D01 /* SceneDelegate.swift in Sources */,

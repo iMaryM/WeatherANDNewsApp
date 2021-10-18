@@ -105,13 +105,20 @@ class MainViewController: UIViewController {
             self.currentWeatherMain = weather
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
-            guard self.currentWeatherMain != nil else {
+            guard let currentWeatherMain_ = self.currentWeatherMain else {
                 self.showMessage("\(addedCity) not found\n Enter the correct city, please", type: .error, options: [
                                     .animationDuration(0.3),
                                     .textColor(.lightGray),
                                     .textNumberOfLines(0)])
                 return
             }
+            
+            guard let currentWeatherMainF = currentWeatherMain_.arrayOfCurrentWeatherDescription.first else { return }
+
+            let weatherInfoDB = WeatherInfoDB(shortNameOfWeather: currentWeatherMainF.shortNameOfWeather, descriptionOfWeather: currentWeatherMainF.descriptionOfWeather, imageName: currentWeatherMainF.imageName, currentTemperature: currentWeatherMain_.currentTemperature)
+            let requestInfoDB = RequestInfoDB(date: Date().getCurrentDate(from: "dd.MM.yyyy HH:mm", locale: .current, timeZone: .current), city: addedCity, currentWeather: weatherInfoDB)
+            RealmManager.shared.saveRequestInfo(by: requestInfoDB)
+            
             
             guard let weatherViewController = self.getViewController(from: "Weather", and: "WeatherViewController") as? WeatherViewController else {return}
             weatherViewController.addedCity = addedCity

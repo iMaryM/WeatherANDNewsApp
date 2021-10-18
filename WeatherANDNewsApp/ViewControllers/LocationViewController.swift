@@ -110,7 +110,7 @@ class LocationViewController: UIViewController {
             self.currentWeatherMain = weather
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
-            guard self.currentWeatherMain != nil else {
+            guard let currentWeatherMain_ = self.currentWeatherMain else {
                 self.showMessage("\(addedLocation) not found\n Enter the correct city, please", type: .error, options: [
                                     .animationDuration(0.4),
                                     .position(.bottom),
@@ -118,6 +118,12 @@ class LocationViewController: UIViewController {
                                     .textNumberOfLines(0)])
                 return
             }
+            
+            guard let currentWeatherMainF = currentWeatherMain_.arrayOfCurrentWeatherDescription.first else { return }
+            
+            let weatherInfoDB = WeatherInfoDB(shortNameOfWeather: currentWeatherMainF.shortNameOfWeather, descriptionOfWeather: currentWeatherMainF.descriptionOfWeather, imageName: currentWeatherMainF.imageName, currentTemperature: currentWeatherMain_.currentTemperature)
+            let requestInfoDB = RequestInfoDB(date: Date().getCurrentDate(from: "dd.MM.yyyy HH:mm", locale: .current, timeZone: .current), city: addedLocation, currentWeather: weatherInfoDB)
+            RealmManager.shared.saveRequestInfo(by: requestInfoDB)
             
             self.addedCity = addedLocation
             self.addedLocationTableView.reloadData()
