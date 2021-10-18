@@ -34,11 +34,12 @@ class ChooseMapViewController: UIViewController {
 
         marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 50.4546600, longitude: 30.5238000))
 
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "marker"))
-        imageView.frame = CGRect(origin: .zero, size: CGSize(width: 20, height: 20))
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "pin"))
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .red
+        imageView.frame = CGRect(origin: .zero, size: CGSize(width: 30, height: 30))
         imageView.contentMode = .scaleAspectFit
         marker?.iconView = imageView
-                                                        
         marker?.map = googleMapView
         
     }

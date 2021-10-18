@@ -90,19 +90,54 @@ class WeatherViewController: UIViewController {
         for value in currentWeather.arrayOfCurrentWeatherDescription {
             self.shortNameOfWeatherLabel.text = value.shortNameOfWeather
             self.descriptionOfWeatherLabel.text = value.descriptionOfWeather
-            if value.weatherID == 800 {
-                self.WeatherImageView.image = UIImage(named: "diego-ph-5LOhydOtTKU-unsplash")
-                self.WeatherImageView.contentMode = .scaleAspectFill
-            }
             
-            if value.weatherID == 804 {
-                self.WeatherImageView.image = UIImage(named: "clouds")
+            switch value.weatherID {
+            case 200, 201, 202, 210, 211, 212, 221, 230, 231, 232:
+                self.WeatherImageView.image = UIImage(named: "thunderstorm_day")
                 self.WeatherImageView.contentMode = .scaleAspectFill
-            }
-            
-            if value.weatherID == 500 {
-                self.WeatherImageView.image = UIImage(named: "rain")
+            case 300...302, 310...314, 321:
+                self.WeatherImageView.image = UIImage(named: "drizzle_day")
                 self.WeatherImageView.contentMode = .scaleAspectFill
+            case 500...504, 511, 520...522, 531:
+                self.WeatherImageView.image = UIImage(named: "rain_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 600...602, 611...616, 620...622:
+                self.WeatherImageView.image = UIImage(named: "snow_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 701:
+                self.WeatherImageView.image = UIImage(named: "mist_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 711:
+                self.WeatherImageView.image = UIImage(named: "smoke_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 721:
+                self.WeatherImageView.image = UIImage(named: "haze_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 731, 761:
+                self.WeatherImageView.image = UIImage(named: "dust_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 741:
+                self.WeatherImageView.image = UIImage(named: "fog_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 751:
+                self.WeatherImageView.image = UIImage(named: "sand_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 762:
+                self.WeatherImageView.image = UIImage(named: "ash_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 771:
+                self.WeatherImageView.image = UIImage(named: "squall_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 781:
+                self.WeatherImageView.image = UIImage(named: "tornado_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 800:
+                self.WeatherImageView.image = UIImage(named: "clear_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            case 801...804:
+                self.WeatherImageView.image = UIImage(named: "сlouds_day")
+                self.WeatherImageView.contentMode = .scaleAspectFill
+            default: break
             }
             
         }
