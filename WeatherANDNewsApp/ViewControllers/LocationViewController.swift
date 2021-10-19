@@ -122,7 +122,7 @@ class LocationViewController: UIViewController {
             guard let currentWeatherMainF = currentWeatherMain_.arrayOfCurrentWeatherDescription.first else { return }
             
             let weatherInfoDB = WeatherInfoDB(shortNameOfWeather: currentWeatherMainF.shortNameOfWeather, descriptionOfWeather: currentWeatherMainF.descriptionOfWeather, imageName: currentWeatherMainF.imageName, currentTemperature: currentWeatherMain_.currentTemperature)
-            let requestInfoDB = RequestInfoDB(date: Date().getCurrentDate(from: "dd.MM.yyyy HH:mm", locale: .current, timeZone: .current), city: addedLocation, currentWeather: weatherInfoDB)
+            let requestInfoDB = RequestInfoDB(date: Date(), city: addedLocation, currentWeather: weatherInfoDB)
             RealmManager.shared.saveRequestInfo(by: requestInfoDB)
             
             self.addedCity = addedLocation

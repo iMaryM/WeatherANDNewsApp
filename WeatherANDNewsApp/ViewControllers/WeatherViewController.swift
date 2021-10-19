@@ -196,5 +196,14 @@ class WeatherViewController: UIViewController {
         locationViewController.modalTransitionStyle = .coverVertical
         present(locationViewController, animated: true, completion: nil)
     }
+    
+    @IBAction func listOfRequestsButton(_ sender: UIButton) {
+        guard let listOfRequestsViewController = getViewController(from: "ListOfRequests", and: "ListOfRequestsViewController") as? ListOfRequestsViewController else {return}
+        listOfRequestsViewController.currentWeatherMain = currentWeatherMain
+        listOfRequestsViewController.modalPresentationStyle = .fullScreen
+        listOfRequestsViewController.modalTransitionStyle = .coverVertical
+        present(listOfRequestsViewController, animated: true, completion: nil)
+    }
+    
 }
 

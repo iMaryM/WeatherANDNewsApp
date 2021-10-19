@@ -22,4 +22,19 @@ class RealmManager {
             print(e)
         }
     }
+    
+    func getRequestInfo() -> [RequestInfoDB] {
+        return localRealm.objects(RequestInfoDB.self).shuffled()
+    }
+    
+    func deleteAll() {
+        do {
+            try localRealm.write {
+                localRealm.deleteAll()
+            }
+        } catch (let e) {
+            print(e)
+        }
+    }
+    
 }

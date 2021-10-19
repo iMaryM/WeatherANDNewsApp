@@ -209,6 +209,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1R1-Se-GVn" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" alpha="0.5" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NaS-ce-Mra">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" systemColor="systemBlueColor"/>

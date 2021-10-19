@@ -116,7 +116,7 @@ class MainViewController: UIViewController {
             guard let currentWeatherMainF = currentWeatherMain_.arrayOfCurrentWeatherDescription.first else { return }
 
             let weatherInfoDB = WeatherInfoDB(shortNameOfWeather: currentWeatherMainF.shortNameOfWeather, descriptionOfWeather: currentWeatherMainF.descriptionOfWeather, imageName: currentWeatherMainF.imageName, currentTemperature: currentWeatherMain_.currentTemperature)
-            let requestInfoDB = RequestInfoDB(date: Date().getCurrentDate(from: "dd.MM.yyyy HH:mm", locale: .current, timeZone: .current), city: addedCity, currentWeather: weatherInfoDB)
+            let requestInfoDB = RequestInfoDB(date: Date(), city: addedCity, currentWeather: weatherInfoDB)
             RealmManager.shared.saveRequestInfo(by: requestInfoDB)
             
             
