@@ -9,7 +9,7 @@ import UIKit
 
 class WeatherViewController: UIViewController {
     
-    @IBOutlet weak var cityLabel: UIButton!
+    @IBOutlet weak var cityButton: UIButton!
     
     @IBOutlet weak var currentWeatherView: UIVisualEffectView!
     @IBOutlet weak var currentWeatherBlur: UIVisualEffectView!
@@ -71,7 +71,7 @@ class WeatherViewController: UIViewController {
             
         }
         
-        cityLabel.setTitle(addedCity, for: .normal)
+        cityButton.setTitle(addedCity, for: .normal)
         
         currentWeatherView.clipsToBounds = true
         currentWeatherView.layer.cornerRadius = currentWeatherView.frame.height / 2.0
@@ -183,7 +183,6 @@ class WeatherViewController: UIViewController {
         
         self.timeLabel.text = "\(self.currentDate.getCurrentDate(from: "E HH:mm"))"
     }
-    
     
     @IBAction func addCity(_ sender: UIButton) {
         guard let locationViewController = getViewController(from: "Location", and: "LocationViewController") as? LocationViewController else {return}
