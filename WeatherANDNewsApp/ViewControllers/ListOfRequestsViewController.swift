@@ -108,10 +108,13 @@ extension ListOfRequestsViewController: UITableViewDataSource {
         return requests.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RequestTableViewCell", for: indexPath) as? RequestTableViewCell else {
             return UITableViewCell()
         }
+        
+        
         cell.setupCell(request: requests[indexPath.row])
         return cell
     }
@@ -119,10 +122,6 @@ extension ListOfRequestsViewController: UITableViewDataSource {
 }
 
 extension ListOfRequestsViewController: UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-        
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64.0
