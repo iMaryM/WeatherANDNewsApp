@@ -10,6 +10,7 @@ import AVKit
 import GoogleMaps
 import NVActivityIndicatorView
 import GSMessages
+import CoreLocation
 
 class ChooseMapViewController: UIViewController {
 
@@ -29,18 +30,22 @@ class ChooseMapViewController: UIViewController {
 
         locationButton.isUserInteractionEnabled = false
         googleMapView.isMyLocationEnabled = true
-        googleMapView.camera = GMSCameraPosition(latitude: 50.4546600, longitude: 30.5238000, zoom: 5.0)
+    
+        initializeTheLocationManager()
+        
+        setupLocation { isAccess in
+            
+            guard isAccess else {
+                googleMapView.camera = GMSCameraPosition(latitude: 50.4546600, longitude: 30.5238000, zoom: 10.0)
+                marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 50.4546600, longitude: 30.5238000))
+                setIconToMapMarker()
+                marker?.map = googleMapView
+                return
+            }
+            
+        }
+        
         googleMapView.delegate = self
-
-        marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 50.4546600, longitude: 30.5238000))
-
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "pin"))
-        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .red
-        imageView.frame = CGRect(origin: .zero, size: CGSize(width: 30, height: 30))
-        imageView.contentMode = .scaleAspectFit
-        marker?.iconView = imageView
-        marker?.map = googleMapView
         
     }
     
@@ -48,16 +53,23 @@ class ChooseMapViewController: UIViewController {
         super.viewDidAppear(animated)
         
         setVideoOnMainScreen()
-        
-//        геопозиция
-//        setupLocation { result in
-//            guard result else { return }
-//            //указываем точность геопозиции
-//            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            self.locationManager.delegate = self
-//            self.locationManager.startUpdatingHeading()
-//        }
   
+    }
+    
+    func initializeTheLocationManager() {
+        //указываем точность геопозиции
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+    }
+    
+    func setIconToMapMarker() {
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "pin"))
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .red
+        imageView.frame = CGRect(origin: .zero, size: CGSize(width: 30, height: 30))
+        imageView.contentMode = .scaleAspectFit
+        marker?.iconView = imageView
     }
     
     func setVideoOnMainScreen() {
@@ -82,23 +94,23 @@ class ChooseMapViewController: UIViewController {
     }
     
 //    геопозиция
-//    func setupLocation(_ completion: (Bool) -> ()) {
-//        //проверка можно ли исп геолокацию
-//        guard CLLocationManager.locationServicesEnabled() else {
-//            completion(false)
-//            return
-//        }
-//
-//        switch locationManager.authorizationStatus {
-//        case .authorizedAlways, .authorizedWhenInUse:
-//            completion(true)
-//        case .denied:
-//            completion(false)
-//        case .notDetermined:
-//            locationManager.requestWhenInUseAuthorization()
-//        default: break
-//        }
-//    }
+    func setupLocation(_ completion: (Bool) -> ()) {
+        //проверка можно ли исп геолокацию
+        guard CLLocationManager.locationServicesEnabled() else {
+            completion(false)
+            return
+        }
+
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            completion(true)
+        case .denied, .restricted:
+            completion(false)
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        default: break
+        }
+    }
     
     @IBAction func locationButtonDidTap(_ sender: UIButton) {
 
@@ -152,7 +164,11 @@ extension ChooseMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         
-        marker?.position = position.target
+        marker?.map = nil
+        
+        marker = GMSMarker(position: position.target)
+        setIconToMapMarker()
+        marker?.map = googleMapView
         
         self.locationButton.setTitle("Founded", for: .normal)
         
@@ -191,8 +207,22 @@ extension ChooseMapViewController: GMSMapViewDelegate {
 extension ChooseMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coordinate = locations.first?.coordinate else {return}
-        print("COORDINATE - \(coordinate)")
+        
+        let location = locationManager.location?.coordinate
+
+        if location != nil {
+            googleMapView.camera = GMSCameraPosition.camera(withTarget: location!, zoom: 10)
+            
+            marker = GMSMarker(position: location!)
+            setIconToMapMarker()
+            marker?.map = googleMapView
+        }
+
+        self.locationManager.stopUpdatingLocation()
+        marker?.map = nil
+
     }
     
 }
+
+
