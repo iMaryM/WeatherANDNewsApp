@@ -9,6 +9,7 @@ import UIKit
 import NVActivityIndicatorView
 import GSMessages
 import AVFoundation
+import CoreLocation
 
 class MainViewController: UIViewController {
 
@@ -17,11 +18,16 @@ class MainViewController: UIViewController {
     @IBOutlet weak var videoView: UIView!
     
     var currentWeatherMain: CurrentWeatherMain?
+    var locationManager = CLLocationManager()
+    var addedCity: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         registerForKeyboardNotification()
+        
+
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +40,59 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         
         setVideoOnMainScreen()
+        initializeTheLocationManager()
+        
+        guard let nextVC = SettingsManager.shared.currentVC else {
+            return
+        }
+        
+        setupLocation { isAccess in
+            guard isAccess else {
+                let alert = UIAlertController(title: "Attention!", message: "Your location is unavaliable. Give access to use you location in Settings, please.", preferredStyle: .alert)
+                let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let settingsButton = UIAlertAction(title: "Settings", style: .default) { _ in
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else {return}
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                    
+                }
+                alert.addAction(cancelButton)
+                alert.addAction(settingsButton)
+                present(alert, animated: true, completion: nil)
+                return
+            }
+        }
+
     }
+    
+    func initializeTheLocationManager() {
+        //указываем точность геопозиции
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    //    геопозиция
+    func setupLocation(_ completion: (Bool) -> ()) {
+        //проверка можно ли исп геолокацию
+        guard CLLocationManager.locationServicesEnabled() else {
+            completion(false)
+            return
+        }
+        
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            completion(true)
+        case .denied, .restricted:
+            completion(false)
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        default: break
+        }
+    }
+    
     
     deinit {
         removeKeyboardNotification()
@@ -132,6 +190,66 @@ class MainViewController: UIViewController {
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
+    }
+    
+}
+
+extension MainViewController: CLLocationManagerDelegate {
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let nextVC = SettingsManager.shared.currentVC else {
+            return
+        }
+            
+            if let location = locations.last {
+                
+                CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
+                    if let error = error {
+                        print(error.localizedDescription ?? "Error")
+                    } else {
+                        guard let place = placeMark?.first else { return }
+                        self.addedCity = place.locality
+                        
+                        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
+                        
+                        if let addedCity = self.addedCity {
+                            HTTPManager.shared.getCurrentWeather(for: addedCity) { weather in
+                                
+                                self.currentWeatherMain = weather
+                                activityIndicator.stopAnimating()
+                                activityIndicator.isHidden = true
+                                guard let _ = self.currentWeatherMain else {
+                                    self.showMessage("1 \(addedCity) not found\n Enter the correct city, please", type: .error, options: [
+                                        .animationDuration(0.3),
+                                        .textColor(.lightGray),
+                                        .textNumberOfLines(0)])
+                                    return
+                                }
+                                
+                                guard let weatherViewController = self.getViewController(from: "Weather", and: nextVC) as? WeatherViewController else {return}
+                                weatherViewController.addedCity = addedCity
+                                weatherViewController.currentWeatherMain = self.currentWeatherMain
+                                weatherViewController.modalPresentationStyle = .fullScreen
+                                weatherViewController.modalTransitionStyle = .coverVertical
+                                self.present(weatherViewController, animated: true, completion: nil)
+                                
+                            }
+                            activityIndicator.center = self.view.center
+                            self.view.addSubview(activityIndicator)
+                            activityIndicator.startAnimating()
+                        } else {
+                            self.showMessage("Enter the city, please", type: .warning, options: [
+                                .animationDuration(0.3),
+                                .textColor(.lightGray),
+                                .textNumberOfLines(0)])
+                        }
+                    }
+                }
+            }
+        
+        locationManager.stopUpdatingLocation()
+        
     }
     
 }

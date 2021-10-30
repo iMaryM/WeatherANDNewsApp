@@ -63,9 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         content.body = "Check the weather in your city"
         content.sound = UNNotificationSound.default
         content.badge = 1
+        content.userInfo = ["Current_vc" : "WeatherViewController"]
         
         //создаем событие по которому будет отправляться уведомление
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 432000.0, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20.0, repeats: false)
         
         //создаем запрос на отправку уведомления
         let request = UNNotificationRequest(identifier: "notification_5_days", content: content, trigger: trigger)
@@ -75,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let error = error else {return}
             print("\(error.localizedDescription)")
         }
+        print("Add notification")
     }
 }
 
