@@ -8,6 +8,7 @@
 import UIKit
 import AVKit
 import GoogleMaps
+import MapKit
 import NVActivityIndicatorView
 import GSMessages
 import CoreLocation
@@ -15,8 +16,11 @@ import CoreLocation
 class ChooseMapViewController: UIViewController {
 
     @IBOutlet weak var videoView: UIView!
-    @IBOutlet weak var googleMapView: GMSMapView!
+    @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var locationButton: UIButton!
+    
+    var appleMapView: MKMapView?
+    var googleMapView: GMSMapView?
     
     var currentWeatherMain: CurrentWeatherMain?
     var addedCity: String?
@@ -28,25 +32,38 @@ class ChooseMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        locationButton.isUserInteractionEnabled = false
-        googleMapView.isMyLocationEnabled = true
-    
-        initializeTheLocationManager()
+        connectToRC()
         
-        setupLocation { isAccess in
+        locationButton.isUserInteractionEnabled = false
+
+        switch RemoteConfigManager.shared.getStringValue(from: .kindOfMaps) {
+        case "Apple":
+            appleMapView = MKMapView(frame: mapView.bounds)
+            mapView.addSubview(appleMapView!)
+        case "Google":
+            googleMapView = GMSMapView(frame: mapView.bounds)
+            mapView.addSubview(googleMapView!)
+            googleMapView?.isMyLocationEnabled = true
             
-            guard isAccess else {
-                googleMapView.camera = GMSCameraPosition(latitude: 50.4546600, longitude: 30.5238000, zoom: 10.0)
-                marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 50.4546600, longitude: 30.5238000))
-                setIconToMapMarker()
-                marker?.map = googleMapView
-                return
+            initializeTheLocationManager()
+            
+            setupLocation { isAccess in
+                
+                guard isAccess else {
+                    googleMapView?.camera = GMSCameraPosition(latitude: 50.4546600, longitude: 30.5238000, zoom: 10.0)
+                    marker = GMSMarker(position: CLLocationCoordinate2D(latitude: 50.4546600, longitude: 30.5238000))
+                    setIconToMapMarker()
+                    marker?.map = googleMapView
+                    return
+                }
+                
             }
             
+            googleMapView?.delegate = self
+            
+        default: break
         }
-        
-        googleMapView.delegate = self
-        
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,6 +71,24 @@ class ChooseMapViewController: UIViewController {
         
         setVideoOnMainScreen()
   
+    }
+    
+    func connectToRC() {
+        
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
+        
+        RemoteConfigManager.shared.remoteConfigConnected = {
+            DispatchQueue.main.async {
+                activityIndicator.center = self.mapView.center
+                self.mapView.addSubview(activityIndicator)
+                activityIndicator.startAnimating()
+            }
+        }
+
+        RemoteConfigManager.shared.connectToFireBaseRC()
+        
+        activityIndicator.stopAnimating()
+        
     }
     
     func initializeTheLocationManager() {
@@ -211,7 +246,7 @@ extension ChooseMapViewController: CLLocationManagerDelegate {
         let location = locationManager.location?.coordinate
 
         if location != nil {
-            googleMapView.camera = GMSCameraPosition.camera(withTarget: location!, zoom: 10)
+            googleMapView?.camera = GMSCameraPosition.camera(withTarget: location!, zoom: 10)
             
             marker = GMSMarker(position: location!)
             setIconToMapMarker()

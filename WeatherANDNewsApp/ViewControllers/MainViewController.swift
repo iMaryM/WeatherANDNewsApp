@@ -25,8 +25,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         registerForKeyboardNotification()
-        
-
 
     }
 

@@ -9,6 +9,7 @@ import UIKit
 import AlamofireNetworkActivityLogger
 import GoogleMaps
 import UserNotifications
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.sendNotification()
             }
         }
+        
+        FirebaseApp.configure()
         
         GMSServices.provideAPIKey("AIzaSyDHSqEJIQhoeasvJwPg6kjIy_YxM0uNCfU")
         

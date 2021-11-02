@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		83228F5E6ADF71FA01DAF336 /* Pods_WeatherANDNewsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA15952B7564E0DB864429F /* Pods_WeatherANDNewsApp.framework */; };
+		84272C2A2731BCC20070B615 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84272C292731BCC20070B615 /* GoogleService-Info.plist */; };
+		84272C2D2731BFDA0070B615 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84272C2C2731BFDA0070B615 /* RemoteConfigManager.swift */; };
 		842A516E26FCC798007CA62F /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A516D26FCC798007CA62F /* HTTPManager.swift */; };
 		842A517026FCC7A7007CA62F /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A516F26FCC7A7007CA62F /* ParseManager.swift */; };
 		842A517426FCCBD9007CA62F /* CurrentWeatherDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842A517326FCCBD9007CA62F /* CurrentWeatherDescription.swift */; };
@@ -42,6 +44,8 @@
 /* Begin PBXFileReference section */
 		3B20C5E7CB043DBCA2A5090A /* Pods-WeatherANDNewsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherANDNewsApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherANDNewsApp/Pods-WeatherANDNewsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4CA15952B7564E0DB864429F /* Pods_WeatherANDNewsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherANDNewsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84272C292731BCC20070B615 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84272C2C2731BFDA0070B615 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		842A516D26FCC798007CA62F /* HTTPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
 		842A516F26FCC7A7007CA62F /* ParseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseManager.swift; sourceTree = "<group>"; };
 		842A517326FCCBD9007CA62F /* CurrentWeatherDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherDescription.swift; sourceTree = "<group>"; };
@@ -97,6 +101,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		84272C2B2731BFBB0070B615 /* RemoteConfig */ = {
+			isa = PBXGroup;
+			children = (
+				84272C2C2731BFDA0070B615 /* RemoteConfigManager.swift */,
+			);
+			path = RemoteConfig;
+			sourceTree = "<group>";
+		};
 		842A516C26FCC777007CA62F /* NetWorking */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +147,7 @@
 		8457B72726EE3C7E00F63D01 /* WeatherANDNewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				84272C2B2731BFBB0070B615 /* RemoteConfig */,
 				84BA7F64271F335D004879DC /* Cells */,
 				84BA7F58271DE49B004879DC /* RealmDB */,
 				84534943270B194B002ABC42 /* Media */,
@@ -148,6 +161,7 @@
 				8457B73126EE3C8600F63D01 /* Assets.xcassets */,
 				8457B73326EE3C8600F63D01 /* LaunchScreen.storyboard */,
 				8457B73626EE3C8600F63D01 /* Info.plist */,
+				84272C292731BCC20070B615 /* GoogleService-Info.plist */,
 				84F07470272CAD120035FD3C /* SettingsManager.swift */,
 			);
 			path = WeatherANDNewsApp;
@@ -315,6 +329,7 @@
 				84BA7F69271F33B8004879DC /* RequestTableViewCell.xib in Resources */,
 				847AC64826FB9F230011C3AB /* Main.storyboard in Resources */,
 				84BA7F63271ECAA5004879DC /* ListOfRequests.storyboard in Resources */,
+				84272C2A2731BCC20070B615 /* GoogleService-Info.plist in Resources */,
 				84BE111F26F63C9A00A2478C /* Location.storyboard in Resources */,
 				84C4E72526F7A4E900FAC1D5 /* LocationTableViewCell.xib in Resources */,
 			);
@@ -394,6 +409,7 @@
 				84BA7F68271F33B8004879DC /* RequestTableViewCell.swift in Sources */,
 				84C4117926F343F300381A99 /* Date+Format.swift in Sources */,
 				8457B72926EE3C7E00F63D01 /* AppDelegate.swift in Sources */,
+				84272C2D2731BFDA0070B615 /* RemoteConfigManager.swift in Sources */,
 				84BA7F5D271DF4BE004879DC /* RequestInfoDB.swift in Sources */,
 				842A517426FCCBD9007CA62F /* CurrentWeatherDescription.swift in Sources */,
 				842A516E26FCC798007CA62F /* HTTPManager.swift in Sources */,

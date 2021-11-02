@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1R1-Se-GVn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1R1-Se-GVn">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -150,12 +150,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="iFO-VQ-Xos" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmw-0D-JPk">
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="YES"/>
-                                </accessibility>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose location on the map, please" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMn-BN-MnM">
                                 <rect key="frame" x="0.0" y="52" width="428" height="21"/>
@@ -176,26 +173,26 @@
                         <viewLayoutGuide key="safeArea" id="qR6-w0-8zE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="iFO-VQ-Xos" secondAttribute="trailing" id="5bs-zL-NaX"/>
-                            <constraint firstItem="qR6-w0-8zE" firstAttribute="bottom" secondItem="iFO-VQ-Xos" secondAttribute="bottom" id="5jr-sJ-GOm"/>
                             <constraint firstItem="ZA8-CS-kzA" firstAttribute="top" secondItem="EMn-BN-MnM" secondAttribute="bottom" constant="4" id="97S-Jf-Fmm"/>
-                            <constraint firstItem="iFO-VQ-Xos" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="G0L-Lu-JLu"/>
                             <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="Ydw-mZ-Ecl" secondAttribute="trailing" id="Imq-uP-KbY"/>
                             <constraint firstAttribute="bottom" secondItem="Ydw-mZ-Ecl" secondAttribute="bottom" id="P3O-eb-1YL"/>
                             <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="ZA8-CS-kzA" secondAttribute="trailing" id="RoA-ab-9rj"/>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="Wmw-0D-JPk" secondAttribute="trailing" id="UIv-cx-6wU"/>
                             <constraint firstItem="Ydw-mZ-Ecl" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="a2A-1i-kpF"/>
                             <constraint firstItem="qR6-w0-8zE" firstAttribute="trailing" secondItem="EMn-BN-MnM" secondAttribute="trailing" id="au7-Ue-3uY"/>
                             <constraint firstItem="EMn-BN-MnM" firstAttribute="top" secondItem="qR6-w0-8zE" secondAttribute="top" constant="8" id="cjD-ve-sHJ"/>
                             <constraint firstItem="ZA8-CS-kzA" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="eIy-K9-WrX"/>
+                            <constraint firstItem="Wmw-0D-JPk" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="ffB-Fe-PxL"/>
                             <constraint firstItem="Ydw-mZ-Ecl" firstAttribute="top" secondItem="dHA-z7-sae" secondAttribute="top" id="pdI-yo-spH"/>
+                            <constraint firstItem="qR6-w0-8zE" firstAttribute="bottom" secondItem="Wmw-0D-JPk" secondAttribute="bottom" id="uNR-fb-4lw"/>
                             <constraint firstItem="EMn-BN-MnM" firstAttribute="leading" secondItem="qR6-w0-8zE" secondAttribute="leading" id="vxj-Uo-HUO"/>
-                            <constraint firstItem="iFO-VQ-Xos" firstAttribute="top" secondItem="dHA-z7-sae" secondAttribute="top" id="xLH-fv-s68"/>
+                            <constraint firstItem="Wmw-0D-JPk" firstAttribute="top" secondItem="dHA-z7-sae" secondAttribute="top" id="wot-i9-PIe"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Choose on map" image="map" id="9RB-A9-8KC"/>
                     <connections>
-                        <outlet property="googleMapView" destination="iFO-VQ-Xos" id="NcR-dr-GAM"/>
                         <outlet property="locationButton" destination="ZA8-CS-kzA" id="619-u2-txw"/>
+                        <outlet property="mapView" destination="Wmw-0D-JPk" id="Hfe-5Y-iG1"/>
                         <outlet property="videoView" destination="Ydw-mZ-Ecl" id="uv9-jY-8hh"/>
                     </connections>
                 </viewController>
