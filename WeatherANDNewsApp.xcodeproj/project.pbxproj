@@ -275,6 +275,7 @@
 				8457B72326EE3C7E00F63D01 /* Resources */,
 				D02E5777C60C41E9E6DF15BC /* [CP] Embed Pods Frameworks */,
 				AC33389CC9D391EF88C8870B /* [CP] Copy Pods Resources */,
+				843A0DC92732F7C40063C11B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -338,6 +339,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		843A0DC92732F7C40063C11B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
 		AC33389CC9D391EF88C8870B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -570,6 +588,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = BG6N9Q9MDU;
 				INFOPLIST_FILE = WeatherANDNewsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -591,6 +610,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BG6N9Q9MDU;
 				INFOPLIST_FILE = WeatherANDNewsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;

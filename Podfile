@@ -12,7 +12,6 @@ target 'WeatherANDNewsApp' do
   pod "GSMessages"
   pod 'GoogleMaps', '5.1.0'
   pod 'RealmSwift', '~>10'
-  pod 'Firebase/Crashlytics'
   pod 'Firebase/RemoteConfig'
   
 end
