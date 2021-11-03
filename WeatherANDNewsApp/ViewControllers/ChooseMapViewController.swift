@@ -28,11 +28,12 @@ class ChooseMapViewController: UIViewController {
     
     var locationManager = CLLocationManager()
     var marker: GMSMarker?
+    var annotation = MKPointAnnotation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        connectToRC()
+        RemoteConfigManager.shared.connectToFireBaseRC()
         
         locationButton.isUserInteractionEnabled = false
 
@@ -40,12 +41,25 @@ class ChooseMapViewController: UIViewController {
         case "Apple":
             appleMapView = MKMapView(frame: mapView.bounds)
             mapView.addSubview(appleMapView!)
+            appleMapView?.showsUserLocation = true
+            
+            setupLocation { isAccess in
+                
+                guard isAccess else {
+                    appleMapView?.centerCoordinate = CLLocationCoordinate2D(latitude: 50.4546600, longitude: 30.5238000)
+                    annotation.coordinate = appleMapView!.centerCoordinate
+                    appleMapView?.addAnnotation(annotation)
+                    return
+                }
+                
+            }
+            
+            appleMapView?.delegate = self
+            
         case "Google":
             googleMapView = GMSMapView(frame: mapView.bounds)
             mapView.addSubview(googleMapView!)
             googleMapView?.isMyLocationEnabled = true
-            
-            initializeTheLocationManager()
             
             setupLocation { isAccess in
                 
@@ -66,36 +80,11 @@ class ChooseMapViewController: UIViewController {
     
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         setVideoOnMainScreen()
   
-    }
-    
-    func connectToRC() {
-        
-        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
-        
-        RemoteConfigManager.shared.remoteConfigConnected = {
-            DispatchQueue.main.async {
-                activityIndicator.center = self.mapView.center
-                self.mapView.addSubview(activityIndicator)
-                activityIndicator.startAnimating()
-            }
-        }
-
-        RemoteConfigManager.shared.connectToFireBaseRC()
-        
-        activityIndicator.stopAnimating()
-        
-    }
-    
-    func initializeTheLocationManager() {
-        //указываем точность геопозиции
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
     }
     
     func setIconToMapMarker() {
@@ -135,9 +124,14 @@ class ChooseMapViewController: UIViewController {
             completion(false)
             return
         }
+        
+        //указываем точность геопозиции
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
 
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
             completion(true)
         case .denied, .restricted:
             completion(false)
@@ -190,12 +184,38 @@ class ChooseMapViewController: UIViewController {
     
 }
 
-extension ChooseMapViewController: GMSMapViewDelegate {
+extension ChooseMapViewController: CLLocationManagerDelegate {
     
-    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locationManager.location?.coordinate
 
-        print("willMove")
+        switch RemoteConfigManager.shared.getStringValue(from: .kindOfMaps) {
+        case "Apple":
+            if location != nil  {
+                appleMapView?.centerCoordinate = location!
+                annotation.coordinate = appleMapView!.centerCoordinate
+                appleMapView?.addAnnotation(annotation)
+            }
+            self.locationManager.stopUpdatingLocation()
+        case "Google":
+            if location != nil {
+                googleMapView?.camera = GMSCameraPosition.camera(withTarget: location!, zoom: 10)
+                
+                marker = GMSMarker(position: location!)
+                setIconToMapMarker()
+                marker?.map = googleMapView
+            }
+            self.locationManager.stopUpdatingLocation()
+            marker?.map = nil
+        default:
+            break
+        }
     }
+    
+}
+
+extension ChooseMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         
@@ -205,7 +225,7 @@ extension ChooseMapViewController: GMSMapViewDelegate {
         setIconToMapMarker()
         marker?.map = googleMapView
         
-        self.locationButton.setTitle("Founded", for: .normal)
+        self.locationButton.setTitle("Founded...", for: .normal)
         
         //отмена выполнения блока кода
         self.dispatchItem?.cancel()
@@ -229,35 +249,43 @@ extension ChooseMapViewController: GMSMapViewDelegate {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: self.dispatchItem!)
-
-        print("didChange position \(position.target)")
-    }
-    
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        print("idleAT \(position.target)")
     }
 
 }
 
-extension ChooseMapViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+extension ChooseMapViewController: MKMapViewDelegate {
+
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        annotation.coordinate = appleMapView!.centerCoordinate
         
-        let location = locationManager.location?.coordinate
-
-        if location != nil {
-            googleMapView?.camera = GMSCameraPosition.camera(withTarget: location!, zoom: 10)
-            
-            marker = GMSMarker(position: location!)
-            setIconToMapMarker()
-            marker?.map = googleMapView
+        self.locationButton.setTitle("Founded...", for: .normal)
+        
+        //отмена выполнения блока кода
+        self.dispatchItem?.cancel()
+        
+        //создание блока кода
+        self.dispatchItem = DispatchWorkItem {
+            guard self.dispatchItem?.isCancelled == false else {return}
+            let location = CLLocation(latitude: self.appleMapView!.centerCoordinate.latitude, longitude: self.appleMapView!.centerCoordinate.longitude)
+            CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
+                if let _ = error {
+                    self.locationButton.setTitle("Not found location", for: .normal)
+                } else {
+                    guard let place = placeMark?.first else { return }
+                    let street = "\(place.country ?? ""), \(place.locality ?? "")"
+                    self.addedCity = place.locality
+                    self.locationButton.setTitle(street, for: .normal)
+                    self.locationButton.isUserInteractionEnabled = true
+                }
+            }
         }
-
-        self.locationManager.stopUpdatingLocation()
-        marker?.map = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: self.dispatchItem!)
 
     }
     
 }
+
+
 
 

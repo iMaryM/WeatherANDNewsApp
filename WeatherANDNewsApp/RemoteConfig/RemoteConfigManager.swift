@@ -17,7 +17,6 @@ class RemoteConfigManager {
     
     var defaultValues: [String : Any] = ["kindOfMaps" : "Apple"]
     
-    var remoteConfigConnected: (()->())?
     var isActivated: Bool = false
     
     init() {
@@ -38,8 +37,6 @@ class RemoteConfigManager {
             if !isActivated {
                 print(error?.localizedDescription ?? "Error")
             }
-            
-            self.remoteConfigConnected?()
         }
     }
     
