@@ -223,10 +223,13 @@ extension ChooseMapViewController: GMSMapViewDelegate {
         
         marker = GMSMarker(position: position.target)
         setIconToMapMarker()
-        marker?.map = googleMapView
+        marker?.map = mapView
         
         self.locationButton.setTitle("Founded...", for: .normal)
         
+    }
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         //отмена выполнения блока кода
         self.dispatchItem?.cancel()
         
@@ -256,7 +259,7 @@ extension ChooseMapViewController: GMSMapViewDelegate {
 extension ChooseMapViewController: MKMapViewDelegate {
 
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        annotation.coordinate = appleMapView!.centerCoordinate
+        annotation.coordinate = mapView.centerCoordinate
         
         self.locationButton.setTitle("Founded...", for: .normal)
         
@@ -266,7 +269,7 @@ extension ChooseMapViewController: MKMapViewDelegate {
         //создание блока кода
         self.dispatchItem = DispatchWorkItem {
             guard self.dispatchItem?.isCancelled == false else {return}
-            let location = CLLocation(latitude: self.appleMapView!.centerCoordinate.latitude, longitude: self.appleMapView!.centerCoordinate.longitude)
+            let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
             CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
                 if let _ = error {
                     self.locationButton.setTitle("Not found location", for: .normal)
