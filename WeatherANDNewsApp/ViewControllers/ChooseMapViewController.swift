@@ -220,7 +220,7 @@ extension ChooseMapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         
         marker?.map = nil
-        
+
         marker = GMSMarker(position: position.target)
         setIconToMapMarker()
         marker?.map = mapView
