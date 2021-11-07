@@ -12,6 +12,7 @@ import MapKit
 import NVActivityIndicatorView
 import GSMessages
 import CoreLocation
+import RxSwift
 
 class ChooseMapViewController: UIViewController {
 
@@ -29,6 +30,9 @@ class ChooseMapViewController: UIViewController {
     var locationManager = CLLocationManager()
     var marker: GMSMarker?
     var annotation = MKPointAnnotation()
+
+    var subjectCoordinate = BehaviorSubject<CLLocationCoordinate2D>(value: CLLocationCoordinate2D())
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +58,26 @@ class ChooseMapViewController: UIViewController {
                 
             }
             
+            subjectCoordinate
+                .debounce(DispatchTimeInterval.seconds(5), scheduler: MainScheduler.instance)
+                .subscribe(onNext: { coordinate in
+                    let location = CLLocation(latitude: self.appleMapView!.centerCoordinate.latitude, longitude: self.appleMapView!.centerCoordinate.longitude)
+                    CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
+                        if let _ = error {
+                            self.locationButton.setTitle("Not found location", for: .normal)
+                        } else {
+                            guard let place = placeMark?.first else { return }
+                            let street = "\(place.country ?? ""), \(place.locality ?? "")"
+                            self.addedCity = place.locality
+                            self.locationButton.setTitle(street, for: .normal)
+                            self.locationButton.isUserInteractionEnabled = true
+                            
+                            self.sendRequest()
+                        }
+                    }
+                })
+                .disposed(by: disposeBag)
+            
             appleMapView?.delegate = self
             
         case "Google":
@@ -72,6 +96,26 @@ class ChooseMapViewController: UIViewController {
                 }
                 
             }
+            
+            subjectCoordinate
+                .debounce(DispatchTimeInterval.seconds(5), scheduler: MainScheduler.instance)
+                .subscribe(onNext: { coordinate in
+                    let location = CLLocation(latitude: self.googleMapView!.camera.target.latitude, longitude: self.googleMapView!.camera.target.longitude)
+                    CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
+                        if let _ = error {
+                            self.locationButton.setTitle("Not found location", for: .normal)
+                        } else {
+                            guard let place = placeMark?.first else { return }
+                            let street = "\(place.country ?? ""), \(place.locality ?? "")"
+                            self.addedCity = place.locality
+                            self.locationButton.setTitle(street, for: .normal)
+                            self.locationButton.isUserInteractionEnabled = true
+                            
+                            self.sendRequest()
+                        }
+                    }
+                })
+                .disposed(by: disposeBag)
             
             googleMapView?.delegate = self
             
@@ -141,8 +185,7 @@ class ChooseMapViewController: UIViewController {
         }
     }
     
-    @IBAction func locationButtonDidTap(_ sender: UIButton) {
-
+    func sendRequest() {
         GSMessage.errorBackgroundColor = UIColor(red: 219.0/255, green: 36.0/255,  blue: 27.0/255,  alpha: 0.35)
         GSMessage.warningBackgroundColor = UIColor(red: 230.0/255, green: 189.0/255, blue: 1.0/255,   alpha: 0.55)
         
@@ -182,6 +225,11 @@ class ChooseMapViewController: UIViewController {
         activityIndicator.startAnimating()
     }
     
+    
+    @IBAction func locationButtonDidTap(_ sender: UIButton) {
+
+    }
+    
 }
 
 extension ChooseMapViewController: CLLocationManagerDelegate {
@@ -216,39 +264,25 @@ extension ChooseMapViewController: CLLocationManagerDelegate {
 }
 
 extension ChooseMapViewController: GMSMapViewDelegate {
-    
+
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         
-        marker?.map = nil
+        subjectCoordinate.onNext(mapView.camera.target)
         
-        marker = GMSMarker(position: position.target)
-        setIconToMapMarker()
-        marker?.map = googleMapView
-        
-        self.locationButton.setTitle("Founded...", for: .normal)
-        
-        //отмена выполнения блока кода
-        self.dispatchItem?.cancel()
-        
-        //создание блока кода
-        self.dispatchItem = DispatchWorkItem {
-            guard self.dispatchItem?.isCancelled == false else {return}
-            let location = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
-            CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
-                if let _ = error {
-                    self.locationButton.setTitle("Not found location", for: .normal)
-                } else {
-                    guard let place = placeMark?.first else { return }
-                    
-                    let street = "\(place.country ?? ""), \(place.locality ?? "")"
-                    self.addedCity = place.locality
-                    self.locationButton.setTitle(street, for: .normal)
-                    self.locationButton.isUserInteractionEnabled = true
-                }
-            }
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: self.dispatchItem!)
+        subjectCoordinate
+            .subscribe(on: MainScheduler.instance)
+            .subscribe (onNext: { coordinate in
+
+                self.marker?.map = nil
+                
+                self.marker = GMSMarker(position: coordinate)
+                self.setIconToMapMarker()
+                self.marker?.map = mapView
+                
+                self.locationButton.setTitle("Founded...", for: .normal)
+            })
+            .disposed(by: disposeBag)
+
     }
 
 }
@@ -256,32 +290,19 @@ extension ChooseMapViewController: GMSMapViewDelegate {
 extension ChooseMapViewController: MKMapViewDelegate {
 
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        annotation.coordinate = appleMapView!.centerCoordinate
-        
-        self.locationButton.setTitle("Founded...", for: .normal)
-        
-        //отмена выполнения блока кода
-        self.dispatchItem?.cancel()
-        
-        //создание блока кода
-        self.dispatchItem = DispatchWorkItem {
-            guard self.dispatchItem?.isCancelled == false else {return}
-            let location = CLLocation(latitude: self.appleMapView!.centerCoordinate.latitude, longitude: self.appleMapView!.centerCoordinate.longitude)
-            CLGeocoder().reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en")) { placeMark, error in
-                if let _ = error {
-                    self.locationButton.setTitle("Not found location", for: .normal)
-                } else {
-                    guard let place = placeMark?.first else { return }
-                    let street = "\(place.country ?? ""), \(place.locality ?? "")"
-                    self.addedCity = place.locality
-                    self.locationButton.setTitle(street, for: .normal)
-                    self.locationButton.isUserInteractionEnabled = true
-                }
-            }
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: self.dispatchItem!)
 
+        subjectCoordinate.onNext(mapView.centerCoordinate)
+
+        subjectCoordinate
+            .subscribe(on: MainScheduler.instance)
+            .subscribe (onNext: { coordinate in
+
+                self.annotation.coordinate = coordinate
+
+                self.locationButton.setTitle("Founded...", for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
 }
