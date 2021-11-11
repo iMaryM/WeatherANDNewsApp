@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SwiftUI
 
 class ListOfRequestsViewController: UIViewController {
 
     @IBOutlet weak var requestsTableView: UITableView!
     @IBOutlet weak var currentWeatherImageView: UIImageView!
-    
+
     var currentWeatherMain: CurrentWeatherMain?
     var requests: [RequestInfoDB] = []
+    
+    let dataSource = BehaviorSubject<[RequestInfoDB]>(value: [])
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,10 +90,27 @@ class ListOfRequestsViewController: UIViewController {
     }
     
     private func setupTable() {
-        requestsTableView.dataSource = self
-        requestsTableView.delegate = self
+        
         requestsTableView.tableFooterView = UIView()
         requestsTableView.register(UINib(nibName: "RequestTableViewCell", bundle: nil), forCellReuseIdentifier: "RequestTableViewCell")
+        
+        requestsTableView
+            .rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+
+        dataSource
+            .bind(to:
+                    requestsTableView
+                    .rx
+                    .items(cellIdentifier: "RequestTableViewCell", cellType: RequestTableViewCell.self)) { index, model, cell in
+                cell.setupCell(request: model)
+            }
+            .disposed(by: disposeBag)
+        
+        dataSource
+            .onNext(requests)
+
     }
 
     @IBAction func backButton(_ sender: UIButton) {
@@ -97,26 +120,9 @@ class ListOfRequestsViewController: UIViewController {
     @IBAction func clearAllButton(_ sender: UIButton) {
         RealmManager.shared.deleteAll()
         requests.removeAll()
-        requestsTableView.reloadData()
-    }
-    
-}
-
-extension ListOfRequestsViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return requests.count
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RequestTableViewCell", for: indexPath) as? RequestTableViewCell else {
-            return UITableViewCell()
-        }
         
-        
-        cell.setupCell(request: requests[indexPath.row])
-        return cell
+        dataSource
+            .onNext(requests)
     }
     
 }
