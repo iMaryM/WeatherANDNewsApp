@@ -136,7 +136,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="855" y="819"/>
+            <point key="canvasLocation" x="-8" y="818"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="G6y-y9-boe">
+            <objects>
+                <viewController storyboardIdentifier="NewsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bb2-0f-eeO" customClass="NewsViewController" customModule="WeatherANDNewsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zyf-9i-iaN">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZl-zT-BB5">
+                                <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The New York Times" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxs-Fo-beI">
+                                        <rect key="frame" x="0.0" y="0.0" width="428" height="44"/>
+                                        <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="gxs-Fo-beI" secondAttribute="bottom" id="9TL-4t-Wq7"/>
+                                    <constraint firstItem="gxs-Fo-beI" firstAttribute="leading" secondItem="bZl-zT-BB5" secondAttribute="leading" id="Wn8-eF-NHT"/>
+                                    <constraint firstAttribute="height" constant="44" id="Zoy-gJ-Ckn"/>
+                                    <constraint firstItem="gxs-Fo-beI" firstAttribute="top" secondItem="bZl-zT-BB5" secondAttribute="top" id="e5E-h5-QXv"/>
+                                    <constraint firstAttribute="trailing" secondItem="gxs-Fo-beI" secondAttribute="trailing" id="o3V-Ch-vfg"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HbX-mo-3WB">
+                                <rect key="frame" x="0.0" y="88" width="428" height="755"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TCI-0T-mpL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TCI-0T-mpL" firstAttribute="bottom" secondItem="HbX-mo-3WB" secondAttribute="bottom" id="BcN-61-JuJ"/>
+                            <constraint firstItem="TCI-0T-mpL" firstAttribute="trailing" secondItem="HbX-mo-3WB" secondAttribute="trailing" id="HIV-Bt-RhZ"/>
+                            <constraint firstItem="HbX-mo-3WB" firstAttribute="leading" secondItem="TCI-0T-mpL" secondAttribute="leading" id="hWS-aE-vfO"/>
+                            <constraint firstItem="bZl-zT-BB5" firstAttribute="leading" secondItem="TCI-0T-mpL" secondAttribute="leading" id="kre-OR-5pl"/>
+                            <constraint firstItem="HbX-mo-3WB" firstAttribute="top" secondItem="bZl-zT-BB5" secondAttribute="bottom" id="qJv-R5-m2s"/>
+                            <constraint firstItem="TCI-0T-mpL" firstAttribute="trailing" secondItem="bZl-zT-BB5" secondAttribute="trailing" id="sr5-6t-vFs"/>
+                            <constraint firstItem="bZl-zT-BB5" firstAttribute="top" secondItem="TCI-0T-mpL" secondAttribute="top" id="y5Z-Yv-mgj"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="News" image="news" id="3f4-qf-CLp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r26-TJ-rfE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="942.0560747663551" y="817.71058315334778"/>
         </scene>
         <!--Choose on map-->
         <scene sceneID="4GP-gE-vxF">
@@ -198,7 +248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXu-Fk-7pP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-768.2242990654205" y="817.71058315334778"/>
+            <point key="canvasLocation" x="-956" y="819"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FAu-xj-Uzx">
@@ -215,6 +265,7 @@
                     <connections>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="6dx-Mf-72z"/>
                         <segue destination="ptB-Jk-GG8" kind="relationship" relationship="viewControllers" id="Czh-Ta-QsK"/>
+                        <segue destination="bb2-0f-eeO" kind="relationship" relationship="viewControllers" id="Znw-Sd-9aF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gO-Jg-1Gd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -227,6 +278,7 @@
         <image name="arrow.forward" catalog="system" width="128" height="98"/>
         <image name="chevron.forward" catalog="system" width="96" height="128"/>
         <image name="map" width="16.666666030883789" height="16.666666030883789"/>
+        <image name="news" width="20" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
