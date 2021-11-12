@@ -22,4 +22,8 @@ class HTTPManager {
             onCompletion (currentWeather)
         }
     }
+    
+    func getNews() {
+        
+    }
 }
