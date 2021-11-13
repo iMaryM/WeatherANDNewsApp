@@ -48,4 +48,53 @@ class ParseManager {
         
         return CurrentWeatherMain(arrayOfCurrentWeatherDescription: arrayOfCurrentWeatherDescription, currentTemperature: currentTemperature, feelsTemperature: feelsTemperature, atmosphericPressure: atmosphericPressure, humidity: humidity, maxTemperature: maxTemperature, minTemperature: minTemperature, sunrise: Date(timeIntervalSince1970: TimeInterval(sunrise)), sunset: Date(timeIntervalSince1970: TimeInterval(sunset)), windSpeed: windSpeed, windDirection: windDirection)
     }
+    
+    func parseNews(from data: Data) -> [NewsArticle] {
+        
+        var news: [NewsArticle] = []
+        
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {return []}
+        
+        guard let results = json["results"] as? [[String: Any]] else {return []}
+        
+        results.forEach { result in
+            guard let section = result["section"] as? String,
+                  let subsection = result["subsection"] as? String,
+                  let title = result["title"] as? String,
+                  let abstract = result["abstract"] as? String,
+                  let url = result["url"] as? String,
+                  let publishedDate = result["published_date"] as? String,
+                  let multimedias = result["multimedia"] as? [[String : Any]] else {
+                      return
+                  }
+            
+            var images: [Data] = []
+            
+            multimedias.forEach { multimedia in
+                guard let imageData = multimedia["url"] as? String else {return}
+                guard let url = URL(string: imageData),
+                      let data = try? Data(contentsOf: url) else {return}
+                images.append(data)
+            }
+            
+            var newsSection = ""
+            if subsection == "" {
+                newsSection = section.prefix(1).uppercased() + section.lowercased().dropFirst()
+            } else {
+                newsSection = "\(section.prefix(1).uppercased() + section.lowercased().dropFirst()): \(subsection.lowercased())"
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let date = dateFormatter.date(from: publishedDate)!
+            
+            news.append(NewsArticle(section: newsSection, title: title, abstract: abstract, publishDate: date, url: url, imageData: images))
+            
+            
+        }
+        
+        return news
+        
+    }
 }

@@ -11,50 +11,69 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsTableViewCell" id="KGk-i7-Jjw" customClass="NewsTableViewCell" customModule="WeatherANDNewsApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7i9-fR-tZH">
-                        <rect key="frame" x="8" y="7" width="50" height="50"/>
+                        <rect key="frame" x="8" y="16" width="100" height="100"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="WDg-4X-o8B"/>
-                            <constraint firstAttribute="height" constant="50" id="nwx-Oa-Fz2"/>
+                            <constraint firstAttribute="width" constant="100" id="WDg-4X-o8B"/>
+                            <constraint firstAttribute="height" constant="100" id="nwx-Oa-Fz2"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPg-1z-x1g">
-                        <rect key="frame" x="66" y="7" width="30" height="11.5"/>
+                        <rect key="frame" x="116" y="8" width="196" height="11.5"/>
                         <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of News" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9A-1R-Ybv">
-                        <rect key="frame" x="66" y="22.5" width="76.5" height="16"/>
-                        <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of News" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9A-1R-Ybv">
+                        <rect key="frame" x="116" y="23.5" width="196" height="16"/>
+                        <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNe-2T-V4g">
-                        <rect key="frame" x="66" y="42.5" width="19" height="11.5"/>
+                        <rect key="frame" x="116" y="112.5" width="196" height="11.5"/>
                         <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abstract" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpF-bM-p9G">
+                        <rect key="frame" x="116" y="43.5" width="196" height="13.5"/>
+                        <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="mpF-bM-p9G" secondAttribute="trailing" constant="8" id="32p-eZ-9I1"/>
+                    <constraint firstAttribute="trailing" secondItem="B9A-1R-Ybv" secondAttribute="trailing" constant="8" id="6Ay-u3-FY5"/>
                     <constraint firstItem="7i9-fR-tZH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="75G-C8-VpD"/>
                     <constraint firstItem="B9A-1R-Ybv" firstAttribute="leading" secondItem="XPg-1z-x1g" secondAttribute="leading" id="E24-pu-wIF"/>
-                    <constraint firstItem="XPg-1z-x1g" firstAttribute="top" secondItem="7i9-fR-tZH" secondAttribute="top" id="TAv-a6-XmL"/>
+                    <constraint firstItem="XPg-1z-x1g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NOc-do-TJu"/>
+                    <constraint firstAttribute="trailing" secondItem="JNe-2T-V4g" secondAttribute="trailing" constant="8" id="RBO-w8-m4A"/>
+                    <constraint firstItem="mpF-bM-p9G" firstAttribute="leading" secondItem="B9A-1R-Ybv" secondAttribute="leading" id="TPi-ij-yyT"/>
+                    <constraint firstAttribute="trailing" secondItem="XPg-1z-x1g" secondAttribute="trailing" constant="8" id="cmO-Te-tc6"/>
                     <constraint firstItem="JNe-2T-V4g" firstAttribute="leading" secondItem="B9A-1R-Ybv" secondAttribute="leading" id="dOZ-nM-4sw"/>
                     <constraint firstItem="B9A-1R-Ybv" firstAttribute="top" secondItem="XPg-1z-x1g" secondAttribute="bottom" constant="4" id="fKM-zW-m48"/>
                     <constraint firstItem="7i9-fR-tZH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gqe-xB-Xe4"/>
                     <constraint firstItem="XPg-1z-x1g" firstAttribute="leading" secondItem="7i9-fR-tZH" secondAttribute="trailing" constant="8" id="hrp-6U-HXC"/>
-                    <constraint firstItem="JNe-2T-V4g" firstAttribute="top" secondItem="B9A-1R-Ybv" secondAttribute="bottom" constant="4" id="ou4-mj-2Rr"/>
+                    <constraint firstAttribute="bottom" secondItem="JNe-2T-V4g" secondAttribute="bottom" constant="8" id="lfM-m1-hjO"/>
+                    <constraint firstItem="mpF-bM-p9G" firstAttribute="top" secondItem="B9A-1R-Ybv" secondAttribute="bottom" constant="4" id="vou-Wk-fCh"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="abstractLabel" destination="mpF-bM-p9G" id="LLX-bv-KKe"/>
+                <outlet property="dateLabel" destination="JNe-2T-V4g" id="8pT-cB-QY4"/>
+                <outlet property="imageNews" destination="7i9-fR-tZH" id="bbz-e9-nVr"/>
+                <outlet property="sectionLabel" destination="XPg-1z-x1g" id="UFa-8h-KaD"/>
+                <outlet property="titleLabel" destination="B9A-1R-Ybv" id="qhx-o9-yr2"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="102.45535714285714"/>
         </tableViewCell>
     </objects>

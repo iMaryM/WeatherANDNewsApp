@@ -23,7 +23,21 @@ class HTTPManager {
         }
     }
     
-    func getNews() {
-        
+    func getNews(_ onCompletion: @escaping ([NewsArticle]) -> Void) {
+        AF.request("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=5Yx5BPltBf0U1fxC8vlKSgsSu8XCzDc4").response { response in
+            
+            guard let data = response.data else {
+                onCompletion([])
+                return
+            }
+            
+            let newsArticle = ParseManager.shared.parseNews(from: data)
+            guard !newsArticle.isEmpty else {
+                onCompletion ([])
+                return
+            }
+            
+            onCompletion (newsArticle)
+        }
     }
 }

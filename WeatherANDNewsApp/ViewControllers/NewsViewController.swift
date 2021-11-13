@@ -6,17 +6,31 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class NewsViewController: UIViewController {
 
     @IBOutlet weak var newsTableView: UITableView!
+    
+    var news: [NewsArticle] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        setupTable()
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
+        
+        HTTPManager.shared.getNews { newsArticle in
+            self.news = newsArticle
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            self.setupTable()
+        }
+        
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         
     }
     
@@ -31,7 +45,7 @@ class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.0
+        return 132.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -41,12 +55,13 @@ extension NewsViewController: UITableViewDelegate {
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return news.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell") as? NewsTableViewCell else {return UITableViewCell()}
         
+        cell.setupCell(news: news[indexPath.row])
         return cell
     }
     
