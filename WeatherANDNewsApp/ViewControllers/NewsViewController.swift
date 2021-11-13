@@ -16,8 +16,6 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballSpinFadeLoader, color: .lightGray, padding: nil)
         
@@ -50,6 +48,12 @@ extension NewsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "WebViewController", bundle: nil)
+        guard let vc = storyboard.instantiateInitialViewController() as? WebViewController else {return}
+        vc.modalPresentationStyle = .pageSheet
+        vc.modalTransitionStyle = .coverVertical
+        vc.url = news[indexPath.row].url
+        present(vc, animated: true, completion: nil)
     }
 }
 
@@ -64,8 +68,4 @@ extension NewsViewController: UITableViewDataSource {
         cell.setupCell(news: news[indexPath.row])
         return cell
     }
-    
-
-    
-    
 }
